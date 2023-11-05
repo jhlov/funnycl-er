@@ -1,37 +1,41 @@
-import classNames from "classnames";
 import { LoadingLayer } from "components/LoadingLayer";
 import { ToastLayer } from "components/ToastLayer";
-import { SampleA } from "pages/SampleA";
-import { SampleB } from "pages/SampleB";
-import { Link, Redirect, Route, Switch } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import _ from "lodash";
+import { Admin } from "pages/Admin";
+import { Login } from "pages/Login";
+import { Logout } from "pages/Logout";
+import { NoPage } from "pages/NoPage";
+import { useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
+import { useLogin } from "store/useLogin";
 import "./App.scss";
 
 function App() {
-  const isMobile = false;
+  const auth = getAuth();
+  const { setIsLogin } = useLogin();
+
+  useEffect(() => {
+    auth.onAuthStateChanged(() => {
+      onAuthStateChanged();
+    });
+  }, []);
+
+  const onAuthStateChanged = async () => {
+    console.log("onAuthStateChanged", auth.currentUser);
+    setIsLogin(!_.isNil(auth.currentUser));
+  };
 
   return (
     <div className="App">
-      <div className={classNames(isMobile ? "mobile-container" : "container")}>
-        {/* todo: remove */}
-        <div>
-          <Link to="/a" className="btn btn-primary me-3">
-            A
-          </Link>
-          <Link to="/b" className="btn btn-primary">
-            B
-          </Link>
-        </div>
-
-        {/* todo */}
+      <div className="container">
         <Switch>
-          <Route path="/" exact>
-            <Redirect to="/app" />
-          </Route>
-          <Route path="/a" component={SampleA} />
-          <Route path="/b" component={SampleB} />
+          <Route path="/" component={NoPage} exact />
+          <Route path="/admin" component={Admin} />
+          <Route path="/login" component={Login} />
+          <Route path="/logout" component={Logout} />
         </Switch>
 
-        {/* <Route path="/app" component={app} /> */}
         <LoadingLayer />
         <ToastLayer />
       </div>
