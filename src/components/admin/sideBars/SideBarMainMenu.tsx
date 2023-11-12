@@ -11,23 +11,22 @@ export const SideBarMainMenu = () => {
   } = useHistory();
 
   return (
-    <div className="side-bar-main-menu p-1">
+    <div className="side-bar side-bar-main-menu p-1">
       <button
-        className={classNames("side-bar-main-menu__button", {
+        className={classNames("side-bar__button", {
           active: pathname === "/admin/my-work"
         })}
       >
         <AppsIcon />
-        <br />내 작업
+        <div>내 작업</div>
       </button>
       <OverlayTrigger
         placement="right"
         overlay={<Tooltip>준비중입니다.</Tooltip>}
       >
-        <button className="side-bar-main-menu__button disabled">
+        <button className="side-bar__button disabled">
           <ArticleIcon />
-          <br />
-          템플릿
+          <div>템플릿</div>
         </button>
       </OverlayTrigger>
     </div>

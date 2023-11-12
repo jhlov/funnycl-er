@@ -1,10 +1,14 @@
-.side-bar-main-menu {
+.side-bar {
   width: 72px;
   border-right: 1px solid rgba(#5a6577, 0.15);
 
   &__button {
     padding: 0.25rem;
     margin-bottom: 1rem;
+
+    > div {
+      font-size: 0.8rem;
+    }
 
     &.active {
       background-color: rgba(#26c7d9, 0.1);

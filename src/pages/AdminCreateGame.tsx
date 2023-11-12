@@ -1,3 +1,6 @@
+import { ControlInfo } from "components/admin/ControlInfo";
+import { ControlList } from "components/admin/ControlList";
+import { PageList } from "components/admin/PageList";
 import { useEffect } from "react";
 import { useMenus } from "store/useMenus";
 
@@ -8,5 +11,11 @@ export const AdminCreateGame = () => {
     setMenu("CREATE_GAME");
   }, []);
 
-  return <div>AdminCreateGame</div>;
+  return (
+    <div className="d-flex flex-fill">
+      <ControlList />
+      <ControlInfo />
+      <PageList />
+    </div>
+  );
 };
