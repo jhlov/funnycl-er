@@ -24,3 +24,11 @@ code {
 div[role="button"] {
   cursor: pointer;
 }
+
+.btn-primary {
+  background-color: var(--bs-btn-bg);
+}
+
+.btn-secondary {
+  background-color: var(--bs-btn-bg);
+}

@@ -2,6 +2,7 @@ import { Header } from "components/admin/Header";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 import { useLogin } from "store/useLogin";
 import "./Admin.scss";
+import { AdminCreateGame } from "./AdminCreateGame";
 import { AdminMyWork } from "./AdminMyWork";
 
 const Admin = () => {
@@ -17,6 +18,7 @@ const Admin = () => {
               <Redirect to="/admin/my-work" />
             </Route>
             <Route path="/admin/my-work" component={AdminMyWork} />
+            <Route path="/admin/create-game" component={AdminCreateGame} />
           </Switch>
         </>
       ) : (
