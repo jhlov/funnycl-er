@@ -1,0 +1,18 @@
+.side-bar-main-menu {
+  width: 72px;
+  border-right: 1px solid rgba(#5a6577, 0.15);
+
+  &__button {
+    padding: 0.25rem;
+    margin-bottom: 1rem;
+
+    &.active {
+      background-color: rgba(#26c7d9, 0.1);
+      color: #21afbf;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+}

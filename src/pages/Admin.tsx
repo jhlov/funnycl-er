@@ -1,7 +1,8 @@
 import { Header } from "components/admin/Header";
-import { Link } from "react-router-dom";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 import { useLogin } from "store/useLogin";
 import "./Admin.scss";
+import { AdminMyWork } from "./AdminMyWork";
 
 const Admin = () => {
   const { isLogin } = useLogin();
@@ -11,6 +12,12 @@ const Admin = () => {
       {isLogin ? (
         <>
           <Header />
+          <Switch>
+            <Route path="/admin" exact>
+              <Redirect to="/admin/my-work" />
+            </Route>
+            <Route path="/admin/my-work" component={AdminMyWork} />
+          </Switch>
         </>
       ) : (
         <div className="p-5">
