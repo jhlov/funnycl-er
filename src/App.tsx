@@ -28,17 +28,15 @@ function App() {
 
   return (
     <div className="App">
-      <div className="container">
-        <Switch>
-          <Route path="/" component={NoPage} exact />
-          <Route path="/admin" component={Admin} />
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-        </Switch>
+      <Switch>
+        <Route path="/" component={NoPage} exact />
+        <Route path="/admin" component={Admin} />
+        <Route path="/login" component={Login} />
+        <Route path="/logout" component={Logout} />
+      </Switch>
 
-        <LoadingLayer />
-        <ToastLayer />
-      </div>
+      <LoadingLayer />
+      <ToastLayer />
     </div>
   );
 }

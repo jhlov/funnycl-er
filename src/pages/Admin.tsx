@@ -1,3 +1,4 @@
+import { Header } from "components/admin/Header";
 import { Link } from "react-router-dom";
 import { useLogin } from "store/useLogin";
 import "./Admin.scss";
@@ -9,7 +10,7 @@ const Admin = () => {
     <div className="admin">
       {isLogin ? (
         <>
-          <div>로그인 완료</div>
+          <Header />
         </>
       ) : (
         <div className="p-5">
