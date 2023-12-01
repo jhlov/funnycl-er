@@ -3,10 +3,12 @@
   border-right: 1px solid rgba(#5a6577, 0.15);
 
   &__button {
+    width: 100%;
     padding: 0.25rem;
     margin-bottom: 1rem;
 
     > div {
+      white-space: nowrap;
       font-size: 0.8rem;
     }
 

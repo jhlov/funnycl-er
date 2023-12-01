@@ -11,7 +11,7 @@ export const SideBarMainMenu = () => {
   } = useHistory();
 
   return (
-    <div className="side-bar side-bar-main-menu p-1">
+    <div className="side-bar side-bar-main-menu p-1 px-2">
       <button
         className={classNames("side-bar__button", {
           active: pathname === "/admin/my-work"
