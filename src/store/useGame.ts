@@ -38,6 +38,7 @@ interface GameState {
   addNewPage: (index?: number) => Promise<number>;
   deletePage: (index: number) => Promise<number>;
   copyPage: (index: number) => Promise<number>;
+  movePage: (index: number, offset: number) => Promise<number>;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -105,6 +106,21 @@ export const useGame = create<GameState>((set, get) => ({
     const pageList = [...gameInfo.pageList];
     const selectedPage = index + 1;
     pageList.splice(index, 0, _.cloneDeep(pageList[index]));
+    set(() => ({
+      selectedPage,
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
+    }));
+    return Promise.resolve(selectedPage);
+  },
+  movePage(index: number, offset: number) {
+    const { gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPage = index + offset;
+    const page = pageList.splice(index, 1)[0];
+    pageList.splice(selectedPage, 0, _.cloneDeep(page));
     set(() => ({
       selectedPage,
       gameInfo: {

@@ -8,7 +8,7 @@ import "./PageList.scss";
 export const PageList = () => {
   const pageListRef = useRef<HTMLDivElement>(null);
 
-  const { gameInfo, addNewPage, deletePage, copyPage } = useGame();
+  const { gameInfo, addNewPage, deletePage, copyPage, movePage } = useGame();
 
   const onClickAddNewPage = async (index?: number) => {
     const selectedPage = await addNewPage(index);
@@ -28,6 +28,12 @@ export const PageList = () => {
     pageListRef.current?.scrollTo(0, (element as HTMLElement).offsetTop - 10);
   };
 
+  const onClickMovePage = async (index: number, offset: number) => {
+    const selectedPage = await movePage(index, offset);
+    const element = document.querySelector(`#page-${selectedPage}`);
+    pageListRef.current?.scrollTo(0, (element as HTMLElement).offsetTop - 10);
+  };
+
   return (
     <div className="page-list flex-fill p-4 p-relative" ref={pageListRef}>
       {gameInfo.pageList.map((page, i) => (
@@ -39,6 +45,7 @@ export const PageList = () => {
           onClickAddNewPage={onClickAddNewPage}
           onClickDeletePage={onClickDeletePage}
           onClickCopyPage={onClickCopyPage}
+          onClickMovePage={onClickMovePage}
         />
       ))}
 
