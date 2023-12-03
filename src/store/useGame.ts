@@ -33,6 +33,7 @@ interface GameState {
   setControl: (payload: ControlType) => void;
   initGameInfo: () => void;
   onChangePageTitle: (index: number, title: string) => void;
+  onChangeSelectedPage: (selectedPage: number) => void;
   addNewPage: (index?: number) => Promise<number>;
   deletePage: (index: number) => Promise<number>;
 }
@@ -62,6 +63,11 @@ export const useGame = create<GameState>((set, get) => ({
           i === index ? { ...page, title } : page
         )
       }
+    }));
+  },
+  onChangeSelectedPage(selectedPage: number) {
+    set(() => ({
+      selectedPage
     }));
   },
   addNewPage(index?: number) {

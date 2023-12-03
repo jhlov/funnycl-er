@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const Page = (props: Props) => {
-  const { selectedPage, onChangePageTitle } = useGame();
+  const { selectedPage, onChangePageTitle, onChangeSelectedPage } = useGame();
 
   return (
     <div id={`page-${props.index}`} className="page">
@@ -58,6 +58,7 @@ export const Page = (props: Props) => {
         className={classNames("page__canvas", {
           selected: selectedPage === props.index
         })}
+        onClick={() => onChangeSelectedPage(props.index)}
       />
     </div>
   );
