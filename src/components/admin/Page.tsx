@@ -14,6 +14,7 @@ interface Props {
   isLast: boolean;
   onClickAddNewPage: (index: number) => void;
   onClickDeletePage: (index: number) => void;
+  onClickCopyPage: (index: number) => void;
 }
 
 export const Page = (props: Props) => {
@@ -37,7 +38,7 @@ export const Page = (props: Props) => {
           <button onClick={() => props.onClickAddNewPage(props.index + 1)}>
             <AddIcon fontSize="small" />
           </button>
-          <button>
+          <button onClick={() => props.onClickCopyPage(props.index)}>
             <ContentCopyIcon fontSize="small" />
           </button>
           <button disabled={props.index === 0}>

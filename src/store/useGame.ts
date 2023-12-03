@@ -1,3 +1,4 @@
+import _ from "lodash";
 import create from "zustand";
 
 type ControlType = "GAME_INFO" | "IMAGE" | "TEXT";
@@ -36,6 +37,7 @@ interface GameState {
   onChangeSelectedPage: (selectedPage: number) => void;
   addNewPage: (index?: number) => Promise<number>;
   deletePage: (index: number) => Promise<number>;
+  copyPage: (index: number) => Promise<number>;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -89,6 +91,20 @@ export const useGame = create<GameState>((set, get) => ({
     const pageList = [...gameInfo.pageList];
     const selectedPage = Math.max(index - 1, 0);
     pageList.splice(index, 1);
+    set(() => ({
+      selectedPage,
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
+    }));
+    return Promise.resolve(selectedPage);
+  },
+  copyPage(index: number) {
+    const { gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPage = index + 1;
+    pageList.splice(index, 0, _.cloneDeep(pageList[index]));
     set(() => ({
       selectedPage,
       gameInfo: {
