@@ -12,13 +12,14 @@ interface Props {
   index: number;
   pageInfo: PageInfo;
   isLast: boolean;
+  onClickAddNewPage: (index: number) => void;
 }
 
 export const Page = (props: Props) => {
   const { selectedPage, onChangePageTitle } = useGame();
 
   return (
-    <div className="page">
+    <div id={`page-${props.index}`} className="page">
       <div className="d-flex justify-between mb-2">
         <div className="d-flex align-items-center">
           {`${props.index + 1} 페이지 - `}
@@ -32,7 +33,7 @@ export const Page = (props: Props) => {
           ></Form.Control>
         </div>
         <div className="page__buttons">
-          <button>
+          <button onClick={() => props.onClickAddNewPage(props.index + 1)}>
             <AddIcon fontSize="small" />
           </button>
           <button>

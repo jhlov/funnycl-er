@@ -6,13 +6,17 @@ interface GameInfo {
   pageList: PageInfo[];
 }
 
+const newPage: PageInfo = {
+  title: ""
+};
+
 const initGameInfo: GameInfo = {
   pageList: [
     {
-      title: ""
+      ...newPage
     },
     {
-      title: ""
+      ...newPage
     }
   ]
 };
@@ -29,6 +33,7 @@ interface GameState {
   setControl: (payload: ControlType) => void;
   initGameInfo: () => void;
   onChangePageTitle: (index: number, title: string) => void;
+  addNewPage: (index?: number) => Promise<number>;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -57,5 +62,19 @@ export const useGame = create<GameState>((set, get) => ({
         )
       }
     }));
+  },
+  addNewPage(index?: number) {
+    const { gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPage = index ?? pageList.length;
+    pageList.splice(index ?? -1, 0, { ...newPage });
+    set(() => ({
+      selectedPage,
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
+    }));
+    return Promise.resolve(selectedPage);
   }
 }));

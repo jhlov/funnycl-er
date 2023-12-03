@@ -1,7 +1,15 @@
 .page-list {
+  scroll-behavior: smooth;
+  position: relative;
+  overflow-y: auto;
+  height: calc(100vh - 48px);
   background-color: #f1f1f2;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  &__add-button {
+    width: 400px;
+  }
 }
