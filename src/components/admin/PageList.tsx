@@ -8,10 +8,16 @@ import "./PageList.scss";
 export const PageList = () => {
   const pageListRef = useRef<HTMLDivElement>(null);
 
-  const { gameInfo, addNewPage } = useGame();
+  const { gameInfo, addNewPage, deletePage } = useGame();
 
   const onClickAddNewPage = async (index?: number) => {
     const selectedPage = await addNewPage(index);
+    const element = document.querySelector(`#page-${selectedPage}`);
+    pageListRef.current?.scrollTo(0, (element as HTMLElement).offsetTop - 10);
+  };
+
+  const onClickDeletePage = async (index: number) => {
+    const selectedPage = await deletePage(index);
     const element = document.querySelector(`#page-${selectedPage}`);
     pageListRef.current?.scrollTo(0, (element as HTMLElement).offsetTop - 10);
   };
@@ -25,6 +31,7 @@ export const PageList = () => {
           pageInfo={page}
           isLast={i === gameInfo.pageList.length - 1}
           onClickAddNewPage={onClickAddNewPage}
+          onClickDeletePage={onClickDeletePage}
         />
       ))}
 

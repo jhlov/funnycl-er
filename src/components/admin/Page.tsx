@@ -13,6 +13,7 @@ interface Props {
   pageInfo: PageInfo;
   isLast: boolean;
   onClickAddNewPage: (index: number) => void;
+  onClickDeletePage: (index: number) => void;
 }
 
 export const Page = (props: Props) => {
@@ -45,7 +46,10 @@ export const Page = (props: Props) => {
           <button disabled={props.isLast}>
             <ArrowDownwardIcon fontSize="small" />
           </button>
-          <button disabled={props.index === 0 && props.isLast}>
+          <button
+            disabled={props.index === 0 && props.isLast}
+            onClick={() => props.onClickDeletePage(props.index)}
+          >
             <DeleteIcon fontSize="small" />
           </button>
         </div>
