@@ -15,7 +15,8 @@ interface Props {
 }
 
 export const Page = (props: Props) => {
-  const { selectedPage } = useGame();
+  const { selectedPage, onChangePageTitle } = useGame();
+
   return (
     <div className="page">
       <div className="d-flex justify-between mb-2">
@@ -25,6 +26,9 @@ export const Page = (props: Props) => {
             className="page__title"
             size="sm"
             placeholder="제목 입력"
+            value={props.pageInfo.title}
+            onChange={e => onChangePageTitle(props.index, e.target.value)}
+            onBlur={e => onChangePageTitle(props.index, e.target.value)}
           ></Form.Control>
         </div>
         <div className="page__buttons">

@@ -28,9 +28,10 @@ interface GameState {
   ///////
   setControl: (payload: ControlType) => void;
   initGameInfo: () => void;
+  onChangePageTitle: (index: number, title: string) => void;
 }
 
-export const useGame = create<GameState>(set => ({
+export const useGame = create<GameState>((set, get) => ({
   gameInfo: initGameInfo,
   control: "GAME_INFO",
   selectedPage: 0,
@@ -44,6 +45,17 @@ export const useGame = create<GameState>(set => ({
     set(() => ({
       gameInfo: { ...initGameInfo },
       selectedPage: 0
+    }));
+  },
+  onChangePageTitle(index: number, title: string) {
+    const { gameInfo } = get();
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList: gameInfo.pageList.map((page, i) =>
+          i === index ? { ...page, title } : page
+        )
+      }
     }));
   }
 }));
