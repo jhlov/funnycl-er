@@ -1,0 +1,19 @@
+.sample-image-list {
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 4px;
+  }
+
+  &__item {
+    cursor: pointer;
+    width: 100px;
+    padding: 4px;
+    border: 1px solid transparent;
+
+    &:hover {
+      border: 1px solid lightgray;
+      border-radius: 4px;
+    }
+  }
+}
