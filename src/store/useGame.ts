@@ -1,4 +1,6 @@
+import { SampleImage } from "interfaces/SampleImage";
 import _ from "lodash";
+import { v4 as uuidv4 } from "uuid";
 import create from "zustand";
 
 type ControlType = "GAME_INFO" | "IMAGE" | "TEXT";
@@ -8,7 +10,8 @@ interface GameInfo {
 }
 
 const newPage: PageInfo = {
-  title: ""
+  title: "",
+  elements: []
 };
 
 const initGameInfo: GameInfo = {
@@ -24,6 +27,19 @@ const initGameInfo: GameInfo = {
 
 export interface PageInfo {
   title: string;
+  elements: PageElement[];
+}
+
+type ElementType = "SAMPLE_IMAGE" | "TEXT";
+
+export interface PageElement {
+  uuid: string;
+  type: ElementType;
+  top: number;
+  left: number;
+  width: number;
+  height?: number;
+  sampleImage?: SampleImage;
 }
 
 interface GameState {
@@ -39,6 +55,7 @@ interface GameState {
   deletePage: (index: number) => Promise<number>;
   copyPage: (index: number) => Promise<number>;
   movePage: (index: number, offset: number) => Promise<number>;
+  addNewSampleImage: (sampleImage: SampleImage) => void;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -129,5 +146,26 @@ export const useGame = create<GameState>((set, get) => ({
       }
     }));
     return Promise.resolve(selectedPage);
+  },
+  addNewSampleImage(sampleImage: SampleImage) {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements.push({
+      uuid: uuidv4(),
+      type: "SAMPLE_IMAGE",
+      top: 270,
+      left: 150,
+      width: 100,
+      sampleImage
+    });
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
+    }));
   }
 }));

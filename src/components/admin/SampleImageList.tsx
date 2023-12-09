@@ -1,6 +1,8 @@
+import { SampleImage } from "interfaces/SampleImage";
+import { useGame } from "store/useGame";
 import "./SampleImageList.scss";
 
-const sampleImageList = {
+const sampleImageList: Record<string, SampleImage> = {
   character_1: {
     type: "character",
     key: "character_1",
@@ -34,6 +36,11 @@ const sampleImageList = {
 };
 
 export const SampleImageList = () => {
+  const { addNewSampleImage } = useGame();
+  const onClickImage = (image: SampleImage) => {
+    addNewSampleImage(image);
+  };
+
   return (
     <div className="sample-image-list p-4">
       <div className="text-left fw-bold mb-3">캐릭터</div>
@@ -41,7 +48,11 @@ export const SampleImageList = () => {
         {Object.values(sampleImageList)
           .filter(image => image.type === "character")
           .map(image => (
-            <div key={image.key} className="sample-image-list__item">
+            <div
+              key={image.key}
+              className="sample-image-list__item"
+              onClick={() => onClickImage(image)}
+            >
               <img src={image.url} />
               <div>{image.name}</div>
             </div>
