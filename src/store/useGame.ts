@@ -35,8 +35,8 @@ type ElementType = "SAMPLE_IMAGE" | "TEXT";
 export interface PageElement {
   uuid: string;
   type: ElementType;
-  top: number;
-  left: number;
+  x: number;
+  y: number;
   width: number;
   height?: number;
   sampleImage?: SampleImage;
@@ -56,6 +56,7 @@ interface GameState {
   copyPage: (index: number) => Promise<number>;
   movePage: (index: number, offset: number) => Promise<number>;
   addNewSampleImage: (sampleImage: SampleImage) => void;
+  updateElementPosition: (uuid: string, x: number, y: number) => void;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -154,10 +155,34 @@ export const useGame = create<GameState>((set, get) => ({
     selectedPageInfo.elements.push({
       uuid: uuidv4(),
       type: "SAMPLE_IMAGE",
-      top: 270,
-      left: 150,
+      x: 150,
+      y: 270,
       width: 100,
       sampleImage
+    });
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
+    }));
+  },
+  updateElementPosition(uuid: string, x: number, y: number) {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = selectedPageInfo.elements.map(element => {
+      if (element.uuid === uuid) {
+        return {
+          ...element,
+          x,
+          y
+        };
+      }
+
+      return element;
     });
     pageList.splice(selectedPage, 1, selectedPageInfo);
 

@@ -35,6 +35,10 @@
 
     .element {
       position: absolute;
+
+      img {
+        pointer-events: none;
+      }
     }
   }
 }
