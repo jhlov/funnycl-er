@@ -155,9 +155,9 @@ export const useGame = create<GameState>((set, get) => ({
     selectedPageInfo.elements.push({
       uuid: uuidv4(),
       type: "SAMPLE_IMAGE",
-      x: 150,
-      y: 270,
-      width: 100,
+      x: sampleImage.type === "character" ? 150 : 0,
+      y: sampleImage.type === "character" ? 270 : 0,
+      width: sampleImage.type === "character" ? 100 : 400,
       sampleImage
     });
     pageList.splice(selectedPage, 1, selectedPageInfo);
