@@ -60,6 +60,7 @@ interface GameState {
   updateElementPosition: (uuid: string, x: number, y: number) => void;
   updateElementSize: (uuid: string, width: number, height: number) => void;
   onClickElement: (uuid: string) => void;
+  deleteElement: (uuid: string) => void;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -224,6 +225,23 @@ export const useGame = create<GameState>((set, get) => ({
   onClickElement(selectedElementId: string) {
     set(() => ({
       selectedElementId
+    }));
+  },
+  deleteElement(uuid: string) {
+    const { selectedPage, selectedElementId, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = selectedPageInfo.elements.filter(
+      element => element.uuid !== uuid
+    );
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      },
+      selectedElementId: selectedElementId === uuid ? "" : selectedElementId
     }));
   }
 }));

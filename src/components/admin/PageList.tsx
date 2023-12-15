@@ -1,5 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useGame } from "store/useGame";
 import { Page } from "./Page";
@@ -7,6 +7,22 @@ import "./PageList.scss";
 
 export const PageList = () => {
   const pageListRef = useRef<HTMLDivElement>(null);
+
+  const { selectedElementId, deleteElement } = useGame();
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Delete" || (e.metaKey && e.key === "Backspace")) {
+      deleteElement(selectedElementId);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedElementId]);
 
   const { gameInfo, addNewPage, deletePage, copyPage, movePage } = useGame();
 
