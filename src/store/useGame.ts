@@ -46,6 +46,7 @@ interface GameState {
   control: ControlType;
   gameInfo: GameInfo;
   selectedPage: number;
+  selectedElementId: string;
   ///////
   setControl: (payload: ControlType) => void;
   initGameInfo: () => void;
@@ -57,12 +58,15 @@ interface GameState {
   movePage: (index: number, offset: number) => Promise<number>;
   addNewSampleImage: (sampleImage: SampleImage) => void;
   updateElementPosition: (uuid: string, x: number, y: number) => void;
+  updateElementSize: (uuid: string, width: number, height: number) => void;
+  onClickElement: (uuid: string) => void;
 }
 
 export const useGame = create<GameState>((set, get) => ({
   gameInfo: initGameInfo,
   control: "GAME_INFO",
   selectedPage: 0,
+  selectedElementId: "",
   ///////
   setControl: payload => {
     set(() => ({
@@ -191,6 +195,35 @@ export const useGame = create<GameState>((set, get) => ({
         ...gameInfo,
         pageList
       }
+    }));
+  },
+  updateElementSize(uuid: string, width: number, height: number) {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = selectedPageInfo.elements.map(element => {
+      if (element.uuid === uuid) {
+        return {
+          ...element,
+          width,
+          height
+        };
+      }
+
+      return element;
+    });
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
+    }));
+  },
+  onClickElement(selectedElementId: string) {
+    set(() => ({
+      selectedElementId
     }));
   }
 }));

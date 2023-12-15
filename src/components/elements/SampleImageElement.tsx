@@ -1,30 +1,60 @@
+import classNames from "classnames";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
+import { Resizable, ResizeCallbackData } from "react-resizable";
 import { PageElement, useGame } from "store/useGame";
+import "./Element.scss";
 
 interface Props {
   element: PageElement;
 }
 
 export const SampleImageElement = (props: Props) => {
-  const { updateElementPosition } = useGame();
+  const {
+    selectedElementId,
+    updateElementPosition,
+    updateElementSize,
+    onClickElement
+  } = useGame();
 
   const handleStop = (e: DraggableEvent, data: DraggableData) => {
     updateElementPosition(props.element.uuid, data.lastX, data.lastY);
   };
 
+  const onResize = (
+    event: React.SyntheticEvent,
+    { node, size, handle }: ResizeCallbackData
+  ) => {
+    updateElementSize(props.element.uuid, size.width, size.height);
+  };
+
   return (
-    <Draggable
-      defaultPosition={{ x: props.element.x, y: props.element.y }}
-      onStop={handleStop}
-    >
-      <div
-        className="element sample-image-element"
-        style={{
-          width: props.element.width
-        }}
+    <div>
+      <Draggable
+        defaultPosition={{ x: props.element.x, y: props.element.y }}
+        onStop={handleStop}
+        cancel=".react-resizable-handle"
       >
-        <img src={props.element.sampleImage?.url} />
-      </div>
-    </Draggable>
+        <Resizable
+          height={props.element.height!}
+          width={props.element.width!}
+          onResize={onResize}
+        >
+          <div
+            className={classNames("element sample-image-element", {
+              selected: selectedElementId === props.element.uuid
+            })}
+            style={{
+              width: props.element.width
+            }}
+            onClick={e => {
+              e.stopPropagation();
+              onClickElement(props.element.uuid);
+            }}
+          >
+            <img src={props.element.sampleImage?.url} />
+          </div>
+        </Resizable>
+      </Draggable>
+    </div>
   );
 };
