@@ -5,7 +5,13 @@ import create from "zustand";
 
 type ControlType = "GAME_INFO" | "IMAGE" | "TEXT";
 
-interface GameInfo {
+export interface GameInfo {
+  id?: string;
+  userId?: string;
+  created?: string;
+  modified?: string;
+  /////////////////
+  title: string;
   pageList: PageInfo[];
 }
 
@@ -15,10 +21,8 @@ const newPage: PageInfo = {
 };
 
 const initGameInfo: GameInfo = {
+  title: "",
   pageList: [
-    {
-      ...newPage
-    },
     {
       ...newPage
     }
@@ -50,6 +54,8 @@ interface GameState {
   ///////
   setControl: (payload: ControlType) => void;
   initGameInfo: () => void;
+  onChangeGameId: (id: string) => void;
+  onChangeGameTitle: (title: string) => void;
   onChangePageTitle: (index: number, title: string) => void;
   onChangeSelectedPage: (selectedPage: number) => void;
   addNewPage: (index?: number) => Promise<number>;
@@ -78,6 +84,18 @@ export const useGame = create<GameState>((set, get) => ({
     set(() => ({
       gameInfo: { ...initGameInfo },
       selectedPage: 0
+    }));
+  },
+  onChangeGameId(id: string) {
+    const { gameInfo } = get();
+    set(() => ({
+      gameInfo: { ...gameInfo, id }
+    }));
+  },
+  onChangeGameTitle(title: string) {
+    const { gameInfo } = get();
+    set(() => ({
+      gameInfo: { ...gameInfo, title }
     }));
   },
   onChangePageTitle(index: number, title: string) {
