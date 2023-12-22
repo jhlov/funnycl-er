@@ -18,7 +18,12 @@ const Admin = () => {
               <Redirect to="/admin/my-work" />
             </Route>
             <Route path="/admin/my-work" component={AdminMyWork} />
-            <Route path="/admin/create-game" component={AdminCreateGame} />
+            <Route
+              path="/admin/create-game"
+              component={AdminCreateGame}
+              exact
+            />
+            <Route path="/admin/create-game/:id" component={AdminCreateGame} />
           </Switch>
         </>
       ) : (

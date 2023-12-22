@@ -1,3 +1,4 @@
+import { child, get as getData, getDatabase, ref } from "firebase/database";
 import { SampleImage } from "interfaces/SampleImage";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
@@ -31,7 +32,7 @@ const initGameInfo: GameInfo = {
 
 export interface PageInfo {
   title: string;
-  elements: PageElement[];
+  elements?: PageElement[];
 }
 
 type ElementType = "SAMPLE_IMAGE" | "TEXT";
@@ -54,6 +55,7 @@ interface GameState {
   ///////
   setControl: (payload: ControlType) => void;
   initGameInfo: () => void;
+  getGameInfo: (id: string) => void;
   onChangeGameId: (id: string) => void;
   onChangeGameTitle: (title: string) => void;
   onChangePageTitle: (index: number, title: string) => void;
@@ -83,8 +85,31 @@ export const useGame = create<GameState>((set, get) => ({
   initGameInfo: () => {
     set(() => ({
       gameInfo: { ...initGameInfo },
-      selectedPage: 0
+      control: "GAME_INFO",
+      selectedPage: 0,
+      selectedElementId: ""
     }));
+  },
+  getGameInfo: (id: string) => {
+    const dbRef = ref(getDatabase());
+    const path = `er/game/${id}`;
+    getData(child(dbRef, path))
+      .then(snapshot => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+          set(() => ({
+            gameInfo: _.cloneDeep(snapshot.val()),
+            control: "GAME_INFO",
+            selectedPage: 0,
+            selectedElementId: ""
+          }));
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   },
   onChangeGameId(id: string) {
     const { gameInfo } = get();
@@ -175,6 +200,7 @@ export const useGame = create<GameState>((set, get) => ({
     const { selectedPage, gameInfo } = get();
     const pageList = [...gameInfo.pageList];
     const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = selectedPageInfo.elements ?? [];
     selectedPageInfo.elements.push({
       uuid: uuidv4(),
       type: "SAMPLE_IMAGE",
@@ -196,17 +222,19 @@ export const useGame = create<GameState>((set, get) => ({
     const { selectedPage, gameInfo } = get();
     const pageList = [...gameInfo.pageList];
     const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
-    selectedPageInfo.elements = selectedPageInfo.elements.map(element => {
-      if (element.uuid === uuid) {
-        return {
-          ...element,
-          x,
-          y
-        };
-      }
+    selectedPageInfo.elements = (selectedPageInfo.elements ?? []).map(
+      element => {
+        if (element.uuid === uuid) {
+          return {
+            ...element,
+            x,
+            y
+          };
+        }
 
-      return element;
-    });
+        return element;
+      }
+    );
     pageList.splice(selectedPage, 1, selectedPageInfo);
 
     set(() => ({
@@ -220,17 +248,19 @@ export const useGame = create<GameState>((set, get) => ({
     const { selectedPage, gameInfo } = get();
     const pageList = [...gameInfo.pageList];
     const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
-    selectedPageInfo.elements = selectedPageInfo.elements.map(element => {
-      if (element.uuid === uuid) {
-        return {
-          ...element,
-          width,
-          height
-        };
-      }
+    selectedPageInfo.elements = (selectedPageInfo.elements ?? []).map(
+      element => {
+        if (element.uuid === uuid) {
+          return {
+            ...element,
+            width,
+            height
+          };
+        }
 
-      return element;
-    });
+        return element;
+      }
+    );
     pageList.splice(selectedPage, 1, selectedPageInfo);
 
     set(() => ({
@@ -249,7 +279,7 @@ export const useGame = create<GameState>((set, get) => ({
     const { selectedPage, selectedElementId, gameInfo } = get();
     const pageList = [...gameInfo.pageList];
     const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
-    selectedPageInfo.elements = selectedPageInfo.elements.filter(
+    selectedPageInfo.elements = (selectedPageInfo.elements ?? []).filter(
       element => element.uuid !== uuid
     );
     pageList.splice(selectedPage, 1, selectedPageInfo);

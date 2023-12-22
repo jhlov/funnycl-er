@@ -69,7 +69,7 @@ export const Page = (props: Props) => {
         })}
         onClick={() => onChangeSelectedPage(props.index)}
       >
-        {props.pageInfo.elements.map(element => {
+        {(props.pageInfo.elements ?? []).map(element => {
           if (element.type === "SAMPLE_IMAGE") {
             return <SampleImageElement key={element.uuid} element={element!} />;
           }

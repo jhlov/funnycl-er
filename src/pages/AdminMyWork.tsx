@@ -70,7 +70,7 @@ export const AdminMyWork = () => {
                   </Link>
                 </td>
                 <td>
-                  <Link className="btn" to={`/admin/game/modify/${item.id}`}>
+                  <Link className="btn" to={`/admin/create-game/${item.id}`}>
                     <EditIcon />
                   </Link>
                 </td>
