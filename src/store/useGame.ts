@@ -143,7 +143,7 @@ export const useGame = create<GameState>((set, get) => ({
     const { gameInfo } = get();
     const pageList = [...gameInfo.pageList];
     const selectedPage = index ?? pageList.length;
-    pageList.splice(index ?? -1, 0, { ...newPage });
+    pageList.splice(index ?? pageList.length, 0, { ...newPage });
     set(() => ({
       selectedPage,
       gameInfo: {
