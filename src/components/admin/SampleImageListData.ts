@@ -278,5 +278,113 @@ export const sampleImageList: Record<string, SampleImage> = {
     key: "background_31",
     url: "/funnycl-er/assets/sample-images/BGDot12_futurelab.png",
     name: "futurelab 2"
+  },
+  bubble_1: {
+    type: "bubble",
+    key: "bubble_1",
+    url: "/funnycl-er/assets/sample-images/speechbubble01.png",
+    name: "bubble01"
+  },
+  bubble_2: {
+    type: "bubble",
+    key: "bubble_2",
+    url: "/funnycl-er/assets/sample-images/speechbubble02.png",
+    name: "bubble02"
+  },
+  bubble_3: {
+    type: "bubble",
+    key: "bubble_3",
+    url: "/funnycl-er/assets/sample-images/speechbubble03.png",
+    name: "bubble03"
+  },
+  bubble_4: {
+    type: "bubble",
+    key: "bubble_4",
+    url: "/funnycl-er/assets/sample-images/speechbubble04.png",
+    name: "bubble04"
+  },
+  bubble_5: {
+    type: "bubble",
+    key: "bubble_5",
+    url: "/funnycl-er/assets/sample-images/textBox.png",
+    name: "bubble05"
+  },
+  button_1: {
+    type: "button",
+    key: "button_1",
+    url: "/funnycl-er/assets/sample-images/(버튼)1.png",
+    name: "버튼 1"
+  },
+  button_2: {
+    type: "button",
+    key: "button_2",
+    url: "/funnycl-er/assets/sample-images/(버튼)2.png",
+    name: "버튼 2"
+  },
+  button_3: {
+    type: "button",
+    key: "button_3",
+    url: "/funnycl-er/assets/sample-images/(버튼)3.png",
+    name: "버튼 3"
+  },
+  button_4: {
+    type: "button",
+    key: "button_4",
+    url: "/funnycl-er/assets/sample-images/(버튼)4.png",
+    name: "버튼 4"
+  },
+  button_5: {
+    type: "button",
+    key: "button_5",
+    url: "/funnycl-er/assets/sample-images/(버튼)네모2.png",
+    name: "버튼 5"
+  },
+  button_6: {
+    type: "button",
+    key: "button_6",
+    url: "/funnycl-er/assets/sample-images/Btn01.png",
+    name: "버튼 6"
+  },
+  button_7: {
+    type: "button",
+    key: "button_7",
+    url: "/funnycl-er/assets/sample-images/Btn02.png",
+    name: "버튼 7"
+  },
+  button_8: {
+    type: "button",
+    key: "button_8",
+    url: "/funnycl-er/assets/sample-images/Btn03.png",
+    name: "버튼 8"
+  },
+  button_9: {
+    type: "button",
+    key: "button_9",
+    url: "/funnycl-er/assets/sample-images/Btn04.png",
+    name: "버튼 9"
+  },
+  button_10: {
+    type: "button",
+    key: "button_10",
+    url: "/funnycl-er/assets/sample-images/BtnB01.png",
+    name: "버튼 10"
+  },
+  button_11: {
+    type: "button",
+    key: "button_11",
+    url: "/funnycl-er/assets/sample-images/BtnB02.png",
+    name: "버튼 11"
+  },
+  button_12: {
+    type: "button",
+    key: "button_12",
+    url: "/funnycl-er/assets/sample-images/BtnB03.png",
+    name: "버튼 12"
+  },
+  button_13: {
+    type: "button",
+    key: "button_13",
+    url: "/funnycl-er/assets/sample-images/BtnB04.png",
+    name: "버튼 13"
   }
 };

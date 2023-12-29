@@ -1,4 +1,7 @@
 .sample-image-list {
+  overflow-y: auto;
+  height: calc(100vh - 48px);
+
   &__items {
     display: flex;
     flex-wrap: wrap;
