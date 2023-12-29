@@ -17,6 +17,7 @@ export interface GameInfo {
 }
 
 const newPage: PageInfo = {
+  uuid: uuidv4(),
   title: "",
   elements: []
 };
@@ -25,12 +26,14 @@ const initGameInfo: GameInfo = {
   title: "",
   pageList: [
     {
-      ...newPage
+      ...newPage,
+      uuid: uuidv4()
     }
   ]
 };
 
 export interface PageInfo {
+  uuid: string;
   title: string;
   elements?: PageElement[];
 }
@@ -79,7 +82,8 @@ export const useGame = create<GameState>((set, get) => ({
   ///////
   setControl: payload => {
     set(() => ({
-      control: payload
+      control: payload,
+      selectedElementId: ""
     }));
   },
   initGameInfo: () => {
@@ -97,8 +101,17 @@ export const useGame = create<GameState>((set, get) => ({
       .then(snapshot => {
         if (snapshot.exists()) {
           console.log(snapshot.val());
+          let gameInfo: GameInfo = _.cloneDeep(snapshot.val());
+          gameInfo = {
+            ...gameInfo,
+            pageList: gameInfo.pageList.map(page => ({
+              ...page,
+              // uuid 없는 페이지 보정
+              uuid: page.uuid ? page.uuid : uuidv4()
+            }))
+          };
           set(() => ({
-            gameInfo: _.cloneDeep(snapshot.val()),
+            gameInfo,
             control: "GAME_INFO",
             selectedPage: 0,
             selectedElementId: ""
@@ -143,7 +156,10 @@ export const useGame = create<GameState>((set, get) => ({
     const { gameInfo } = get();
     const pageList = [...gameInfo.pageList];
     const selectedPage = index ?? pageList.length;
-    pageList.splice(index ?? pageList.length, 0, { ...newPage });
+    pageList.splice(index ?? pageList.length, 0, {
+      ...newPage,
+      uuid: uuidv4()
+    });
     set(() => ({
       selectedPage,
       gameInfo: {
