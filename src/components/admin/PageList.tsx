@@ -1,5 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { useGame } from "store/useGame";
 import { Page } from "./Page";
@@ -8,7 +8,7 @@ import "./PageList.scss";
 export const PageList = () => {
   const pageListRef = useRef<HTMLDivElement>(null);
 
-  const { selectedElementId, deleteElement } = useGame();
+  const { selectedElementId, deleteElement, onClickElement } = useGame();
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Delete" || (e.metaKey && e.key === "Backspace")) {
@@ -50,8 +50,18 @@ export const PageList = () => {
     pageListRef.current?.scrollTo(0, (element as HTMLElement).offsetTop - 10);
   };
 
+  const onClickPageList = (e: React.MouseEvent) => {
+    if (e.target === pageListRef.current) {
+      onClickElement("");
+    }
+  };
+
   return (
-    <div className="page-list flex-fill p-4 p-relative" ref={pageListRef}>
+    <div
+      className="page-list flex-fill p-4 p-relative"
+      ref={pageListRef}
+      onClick={onClickPageList}
+    >
       {gameInfo.pageList.map((page, i) => (
         <Page
           key={`page-${i}`}

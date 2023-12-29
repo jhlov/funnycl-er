@@ -48,6 +48,7 @@ export interface PageElement {
   width: number;
   height?: number;
   sampleImage?: SampleImage;
+  link?: string;
 }
 
 interface GameState {
@@ -70,6 +71,7 @@ interface GameState {
   addNewSampleImage: (sampleImage: SampleImage) => void;
   updateElementPosition: (uuid: string, x: number, y: number) => void;
   updateElementSize: (uuid: string, width: number, height: number) => void;
+  updateElementLink: (uuid: string, link: string) => void;
   onClickElement: (uuid: string) => void;
   deleteElement: (uuid: string) => void;
 }
@@ -149,7 +151,9 @@ export const useGame = create<GameState>((set, get) => ({
   },
   onChangeSelectedPage(selectedPage: number) {
     set(() => ({
-      selectedPage
+      selectedPage,
+      selectedElementId:
+        get().selectedPage !== selectedPage ? "" : get().selectedElementId
     }));
   },
   addNewPage(index?: number) {
@@ -181,6 +185,9 @@ export const useGame = create<GameState>((set, get) => ({
         pageList
       }
     }));
+
+    // TODO: 링크에서 지워줘야됨
+
     return Promise.resolve(selectedPage);
   },
   copyPage(index: number) {
@@ -286,9 +293,47 @@ export const useGame = create<GameState>((set, get) => ({
       }
     }));
   },
-  onClickElement(selectedElementId: string) {
+  updateElementLink(uuid: string, link: string) {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = (selectedPageInfo.elements ?? []).map(
+      element => {
+        if (element.uuid === uuid) {
+          return {
+            ...element,
+            link
+          };
+        }
+
+        return element;
+      }
+    );
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
     set(() => ({
-      selectedElementId
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
+    }));
+  },
+  onClickElement(selectedElementId: string) {
+    const { selectedPage, gameInfo } = get();
+    let newSelectedPage = selectedPage;
+    if (selectedElementId) {
+      gameInfo.pageList.forEach((page, i) => {
+        page.elements?.forEach(element => {
+          if (element.uuid === selectedElementId) {
+            newSelectedPage = i;
+          }
+        });
+      });
+    }
+
+    set(() => ({
+      selectedElementId,
+      selectedPage: newSelectedPage
     }));
   },
   deleteElement(uuid: string) {
