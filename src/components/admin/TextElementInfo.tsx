@@ -22,12 +22,25 @@ export const TextElementInfo = () => {
   return (
     <div>
       <Form.Control
+        className="mb-3"
         as="textarea"
         value={selectedElement?.textInfo?.text}
         onChange={e =>
           updateTextElement(selectedElement?.uuid!, { text: e.target.value })
         }
         rows={5}
+      />
+      <div>
+        <b>폰트 사이즈</b>
+      </div>
+      <Form.Control
+        type="number"
+        value={selectedElement?.textInfo?.fontSize}
+        onChange={e =>
+          updateTextElement(selectedElement?.uuid!, {
+            fontSize: Number(e.target.value)
+          })
+        }
       />
     </div>
   );

@@ -33,7 +33,13 @@ export const PlayTextElement = (props: Props) => {
       }}
       onClick={onClick}
     >
-      <span>{props.element.textInfo?.text}</span>
+      <span
+        style={{
+          fontSize: props.element.textInfo?.fontSize! * props.scale
+        }}
+      >
+        {props.element.textInfo?.text}
+      </span>
     </div>
   );
 };

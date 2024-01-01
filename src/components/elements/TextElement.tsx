@@ -53,7 +53,13 @@ export const TextElement = (props: Props) => {
               onClickElement(props.element.uuid);
             }}
           >
-            <span>{props.element.textInfo?.text}</span>
+            <span
+              style={{
+                fontSize: props.element.textInfo?.fontSize
+              }}
+            >
+              {props.element.textInfo?.text}
+            </span>
           </div>
         </Resizable>
       </Draggable>
