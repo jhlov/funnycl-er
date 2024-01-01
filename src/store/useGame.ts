@@ -1,5 +1,6 @@
 import { child, get as getData, getDatabase, ref } from "firebase/database";
 import { SampleImage } from "interfaces/SampleImage";
+import { TextInfo, initTextInfo } from "interfaces/TextInfo";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import create from "zustand";
@@ -48,6 +49,7 @@ export interface PageElement {
   width: number;
   height?: number;
   sampleImage?: SampleImage;
+  textInfo?: TextInfo;
   link?: string;
 }
 
@@ -74,6 +76,7 @@ interface GameState {
   updateElementLink: (uuid: string, link: string) => void;
   onClickElement: (uuid: string) => void;
   deleteElement: (uuid: string) => void;
+  addNewText: () => void;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -224,8 +227,9 @@ export const useGame = create<GameState>((set, get) => ({
     const pageList = [...gameInfo.pageList];
     const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
     selectedPageInfo.elements = selectedPageInfo.elements ?? [];
+    const uuid = uuidv4();
     selectedPageInfo.elements.push({
-      uuid: uuidv4(),
+      uuid,
       type: "SAMPLE_IMAGE",
       x: sampleImage.type === "character" ? 150 : 0,
       y: sampleImage.type === "character" ? 270 : 0,
@@ -238,7 +242,8 @@ export const useGame = create<GameState>((set, get) => ({
       gameInfo: {
         ...gameInfo,
         pageList
-      }
+      },
+      selectedElementId: uuid
     }));
   },
   updateElementPosition(uuid: string, x: number, y: number) {
@@ -350,6 +355,30 @@ export const useGame = create<GameState>((set, get) => ({
         pageList
       },
       selectedElementId: selectedElementId === uuid ? "" : selectedElementId
+    }));
+  },
+  addNewText() {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = selectedPageInfo.elements ?? [];
+    const uuid = uuidv4();
+    selectedPageInfo.elements.push({
+      uuid,
+      type: "TEXT",
+      x: 100,
+      y: 300,
+      width: 200,
+      textInfo: { ...initTextInfo }
+    });
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      },
+      selectedElementId: uuid
     }));
   }
 }));

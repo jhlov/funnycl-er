@@ -6,7 +6,7 @@ interface Props {
   element: PageElement;
 }
 
-export const PlaySampleImageElement = (props: Props) => {
+export const PlayTextElement = (props: Props) => {
   const { gameInfo, onChangeSelectedPage } = useGame();
 
   const onClick = () => {
@@ -22,7 +22,7 @@ export const PlaySampleImageElement = (props: Props) => {
   };
 
   return (
-    <img
+    <div
       className={classNames("position-absolute", {
         "cursor-pointer": props.element.link
       })}
@@ -31,8 +31,9 @@ export const PlaySampleImageElement = (props: Props) => {
         top: props.element.y * props.scale,
         width: props.element.width * props.scale
       }}
-      src={props.element.sampleImage?.url}
       onClick={onClick}
-    />
+    >
+      <span>{props.element.textInfo?.text}</span>
+    </div>
   );
 };

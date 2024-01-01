@@ -1,4 +1,5 @@
 import { PlaySampleImageElement } from "components/elements/PlaySampleImageElement";
+import { PlayTextElement } from "components/elements/PlayTextElement";
 import { useEffect, useMemo, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useGame } from "store/useGame";
@@ -59,7 +60,15 @@ export const Play = () => {
             return (
               <PlaySampleImageElement
                 key={element.uuid}
-                multiple={(canvasWidth as number) / 400}
+                scale={(canvasWidth as number) / 400}
+                element={element!}
+              />
+            );
+          } else if (element.type === "TEXT") {
+            return (
+              <PlayTextElement
+                key={element.uuid}
+                scale={(canvasWidth as number) / 400}
                 element={element!}
               />
             );

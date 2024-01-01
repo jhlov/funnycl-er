@@ -5,7 +5,13 @@ import classNames from "classnames";
 import { useGame } from "store/useGame";
 
 export const ControlList = () => {
-  const { control, setControl } = useGame();
+  const { control, setControl, addNewText } = useGame();
+
+  const onClickText = () => {
+    setControl("TEXT");
+    addNewText();
+  };
+
   return (
     <div className="side-bar control-list p-1 px-2">
       <button
@@ -30,7 +36,7 @@ export const ControlList = () => {
         className={classNames("side-bar__button", {
           active: control === "TEXT"
         })}
-        onClick={() => setControl("TEXT")}
+        onClick={onClickText}
       >
         <TextFieldsIcon />
         <div>텍스트</div>
