@@ -25,7 +25,7 @@ export const SampleImageElement = (props: Props) => {
     event: React.SyntheticEvent,
     { node, size, handle }: ResizeCallbackData
   ) => {
-    updateElementSize(props.element.uuid, size.width, size.height);
+    updateElementSize(props.element.uuid, size.width);
   };
 
   return (

@@ -70,7 +70,7 @@ interface GameState {
   movePage: (index: number, offset: number) => Promise<number>;
   addNewSampleImage: (sampleImage: SampleImage) => void;
   updateElementPosition: (uuid: string, x: number, y: number) => void;
-  updateElementSize: (uuid: string, width: number, height: number) => void;
+  updateElementSize: (uuid: string, width: number) => void;
   updateElementLink: (uuid: string, link: string) => void;
   onClickElement: (uuid: string) => void;
   deleteElement: (uuid: string) => void;
@@ -267,7 +267,7 @@ export const useGame = create<GameState>((set, get) => ({
       }
     }));
   },
-  updateElementSize(uuid: string, width: number, height: number) {
+  updateElementSize(uuid: string, width: number) {
     const { selectedPage, gameInfo } = get();
     const pageList = [...gameInfo.pageList];
     const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
@@ -276,8 +276,7 @@ export const useGame = create<GameState>((set, get) => ({
         if (element.uuid === uuid) {
           return {
             ...element,
-            width,
-            height
+            width
           };
         }
 
