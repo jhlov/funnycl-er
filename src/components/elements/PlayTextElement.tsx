@@ -29,13 +29,15 @@ export const PlayTextElement = (props: Props) => {
       style={{
         left: props.element.x * props.scale,
         top: props.element.y * props.scale,
-        width: props.element.width * props.scale
+        width: props.element.width * props.scale,
+        textAlign: props.element.textInfo?.horizonAlign
       }}
       onClick={onClick}
     >
       <span
         style={{
-          fontSize: props.element.textInfo?.fontSize! * props.scale
+          fontSize: props.element.textInfo?.fontSize! * props.scale,
+          fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
         }}
       >
         {props.element.textInfo?.text}

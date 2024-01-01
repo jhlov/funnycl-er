@@ -46,7 +46,8 @@ export const TextElement = (props: Props) => {
             })}
             style={{
               width: props.element.width,
-              minHeight: "50px"
+              minHeight: "50px",
+              textAlign: props.element.textInfo?.horizonAlign
             }}
             onClick={e => {
               e.stopPropagation();
@@ -55,7 +56,8 @@ export const TextElement = (props: Props) => {
           >
             <span
               style={{
-                fontSize: props.element.textInfo?.fontSize
+                fontSize: props.element.textInfo?.fontSize,
+                fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
               }}
             >
               {props.element.textInfo?.text}
