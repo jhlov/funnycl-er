@@ -77,6 +77,7 @@ interface GameState {
   onClickElement: (uuid: string) => void;
   deleteElement: (uuid: string) => void;
   addNewText: () => void;
+  updateTextElement: (uuid: string, changed: Partial<TextInfo>) => void;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -379,6 +380,34 @@ export const useGame = create<GameState>((set, get) => ({
         pageList
       },
       selectedElementId: uuid
+    }));
+  },
+  updateTextElement: (uuid: string, changed: Partial<TextInfo>) => {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = (selectedPageInfo.elements ?? []).map(
+      element => {
+        if (element.uuid === uuid) {
+          return {
+            ...element,
+            textInfo: {
+              ...element.textInfo!,
+              ...changed!
+            }
+          };
+        }
+
+        return element;
+      }
+    );
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
     }));
   }
 }));

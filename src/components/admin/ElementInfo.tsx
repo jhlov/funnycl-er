@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Form } from "react-bootstrap";
 import { PageElement, useGame } from "store/useGame";
+import { TextElementInfo } from "./TextElementInfo";
 
 export const ElementInfo = () => {
   const { selectedElementId, selectedPage, gameInfo, updateElementLink } =
@@ -51,6 +52,8 @@ export const ElementInfo = () => {
           })}
         </Form.Select>
       </div>
+
+      {selectedElement?.type === "TEXT" && <TextElementInfo />}
     </div>
   );
 };

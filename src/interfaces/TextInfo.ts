@@ -1,6 +1,6 @@
 export const initTextInfo: TextInfo = {
-  text: "test",
-  fontSize: 12,
+  text: "Input Text",
+  fontSize: 16,
   isBold: false,
   horizonAlign: "center",
   verticalAlign: "top"
