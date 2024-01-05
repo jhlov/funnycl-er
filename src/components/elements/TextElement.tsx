@@ -4,6 +4,7 @@ import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { Resizable, ResizeCallbackData } from "react-resizable";
 import { PageElement, useGame } from "store/useGame";
 import "./Element.scss";
+import { ElementTools } from "./ElementTools";
 
 interface Props {
   element: PageElement;
@@ -62,6 +63,9 @@ export const TextElement = (props: Props) => {
             >
               {props.element.textInfo?.text}
             </span>
+            {selectedElementId === props.element.uuid && (
+              <ElementTools element={props.element} />
+            )}
           </div>
         </Resizable>
       </Draggable>
