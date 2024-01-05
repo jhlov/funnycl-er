@@ -279,6 +279,18 @@ export const sampleImageList: Record<string, SampleImage> = {
     url: "/funnycl-er/assets/sample-images/BGDot12_futurelab.png",
     name: "futurelab 2"
   },
+  background_32: {
+    type: "background",
+    key: "background_32",
+    url: "/funnycl-er/assets/image-background/BG_SG_campus10F-N.png",
+    name: "SG-캠퍼스10층N동"
+  },
+  background_33: {
+    type: "background",
+    key: "background_33",
+    url: "/funnycl-er/assets/image-background/BG_SG_campus10F-S.png",
+    name: "SG-캠퍼스10층S동"
+  },
   bubble_1: {
     type: "bubble",
     key: "bubble_1",
@@ -386,5 +398,29 @@ export const sampleImageList: Record<string, SampleImage> = {
     key: "button_13",
     url: "/funnycl-er/assets/sample-images/BtnB04.png",
     name: "버튼 13"
+  },
+  button_14: {
+    type: "button",
+    key: "button_14",
+    url: "/funnycl-er/assets/image-button/BtnC01.png",
+    name: "버튼 14"
+  },
+  button_15: {
+    type: "button",
+    key: "button_15",
+    url: "/funnycl-er/assets/image-button/BtnC02.png",
+    name: "버튼 15"
+  },
+  button_16: {
+    type: "button",
+    key: "button_16",
+    url: "/funnycl-er/assets/image-button/BtnC03.png",
+    name: "버튼 16"
+  },
+  button_17: {
+    type: "button",
+    key: "button_17",
+    url: "/funnycl-er/assets/image-button/BtnC04.png",
+    name: "버튼 17"
   }
 };
