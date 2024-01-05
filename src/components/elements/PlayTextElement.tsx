@@ -30,7 +30,8 @@ export const PlayTextElement = (props: Props) => {
         left: props.element.x * props.scale,
         top: props.element.y * props.scale,
         width: props.element.width * props.scale,
-        textAlign: props.element.textInfo?.horizonAlign
+        textAlign: props.element.textInfo?.horizonAlign,
+        padding: (props.element.textInfo?.padding ?? 0) * props.scale
       }}
       onClick={onClick}
     >
