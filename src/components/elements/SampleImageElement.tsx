@@ -53,6 +53,36 @@ export const SampleImageElement = (props: Props) => {
             }}
           >
             <img src={props.element.sampleImage?.url} />
+            {props.element.textInfo?.text && (
+              <div
+                className={classNames("sample-image-element__text", {
+                  "justify-content-start":
+                    props.element.textInfo?.horizonAlign === "left",
+                  "justify-content-center":
+                    props.element.textInfo?.horizonAlign === "center",
+                  "justify-content-end":
+                    props.element.textInfo?.horizonAlign === "right",
+                  "align-items-start":
+                    props.element.textInfo?.verticalAlign === "top",
+                  "align-items-center":
+                    props.element.textInfo?.verticalAlign === "center",
+                  "align-items-end":
+                    props.element.textInfo?.verticalAlign === "bottom"
+                })}
+              >
+                <span
+                  style={{
+                    fontSize: props.element.textInfo?.fontSize,
+                    fontWeight: props.element.textInfo?.isBold
+                      ? "bold"
+                      : "normal"
+                  }}
+                >
+                  {props.element.textInfo.text}
+                </span>
+              </div>
+            )}
+
             {selectedElementId === props.element.uuid && (
               <ElementTools element={props.element} />
             )}

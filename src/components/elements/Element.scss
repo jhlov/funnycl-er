@@ -24,3 +24,14 @@
   box-sizing: border-box;
   cursor: se-resize;
 }
+
+.sample-image-element {
+  &__text {
+    display: flex;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+}

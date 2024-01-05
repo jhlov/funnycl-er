@@ -1,6 +1,6 @@
 import { child, get as getData, getDatabase, ref } from "firebase/database";
 import { SampleImage } from "interfaces/SampleImage";
-import { TextInfo, initTextInfo } from "interfaces/TextInfo";
+import { TextInfo, initImageTextInfo, initTextInfo } from "interfaces/TextInfo";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import create from "zustand";
@@ -392,6 +392,7 @@ export const useGame = create<GameState>((set, get) => ({
           return {
             ...element,
             textInfo: {
+              ...initImageTextInfo,
               ...element.textInfo!,
               ...changed!
             }
