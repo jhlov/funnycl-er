@@ -48,7 +48,8 @@ export const TextElement = (props: Props) => {
             style={{
               width: props.element.width,
               minHeight: "50px",
-              textAlign: props.element.textInfo?.horizonAlign
+              textAlign: props.element.textInfo?.horizonAlign,
+              padding: props.element.textInfo?.padding
             }}
             onClick={e => {
               e.stopPropagation();

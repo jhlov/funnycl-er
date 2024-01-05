@@ -53,7 +53,7 @@ export const ElementInfo = () => {
         </Form.Select>
       </div>
 
-      {selectedElement?.type === "TEXT" && <TextElementInfo />}
+      <TextElementInfo />
     </div>
   );
 };
