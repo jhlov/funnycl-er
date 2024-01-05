@@ -30,19 +30,33 @@ export const PlayTextElement = (props: Props) => {
         left: props.element.x * props.scale,
         top: props.element.y * props.scale,
         width: props.element.width * props.scale,
-        textAlign: props.element.textInfo?.horizonAlign,
         padding: (props.element.textInfo?.padding ?? 0) * props.scale
       }}
       onClick={onClick}
     >
-      <span
-        style={{
-          fontSize: props.element.textInfo?.fontSize! * props.scale,
-          fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
-        }}
+      <div
+        className={classNames("h-100 d-flex", {
+          "justify-content-start":
+            props.element.textInfo?.horizonAlign === "left",
+          "justify-content-center":
+            props.element.textInfo?.horizonAlign === "center",
+          "justify-content-end":
+            props.element.textInfo?.horizonAlign === "right",
+          "align-items-start": props.element.textInfo?.verticalAlign === "top",
+          "align-items-center":
+            props.element.textInfo?.verticalAlign === "center",
+          "align-items-end": props.element.textInfo?.verticalAlign === "bottom"
+        })}
       >
-        {props.element.textInfo?.text}
-      </span>
+        <span
+          style={{
+            fontSize: props.element.textInfo?.fontSize! * props.scale,
+            fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
+          }}
+        >
+          {props.element.textInfo?.text}
+        </span>
+      </div>
     </div>
   );
 };

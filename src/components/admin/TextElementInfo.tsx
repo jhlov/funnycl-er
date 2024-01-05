@@ -4,6 +4,9 @@ import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
 import FormatBoldIcon from "@mui/icons-material/FormatBold";
 import RemoveIcon from "@mui/icons-material/Remove";
+import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
+import VerticalAlignCenterIcon from "@mui/icons-material/VerticalAlignCenter";
+import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
 import { initImageTextInfo } from "interfaces/TextInfo";
 import { useMemo } from "react";
 import { Button, ButtonGroup, Form } from "react-bootstrap";
@@ -120,6 +123,7 @@ export const TextElementInfo = () => {
         <ButtonGroup>
           <Button
             variant={textInfo.isBold ? "secondary" : "outline-secondary"}
+            size="sm"
             onClick={() => {
               updateTextElement(selectedElement?.uuid!, {
                 isBold: textInfo.isBold ? false : true
@@ -134,6 +138,7 @@ export const TextElementInfo = () => {
                 ? "secondary"
                 : "outline-secondary"
             }
+            size="sm"
             onClick={() => {
               updateTextElement(selectedElement?.uuid!, {
                 horizonAlign: "left"
@@ -148,6 +153,7 @@ export const TextElementInfo = () => {
                 ? "secondary"
                 : "outline-secondary"
             }
+            size="sm"
             onClick={() => {
               updateTextElement(selectedElement?.uuid!, {
                 horizonAlign: "center"
@@ -162,6 +168,7 @@ export const TextElementInfo = () => {
                 ? "secondary"
                 : "outline-secondary"
             }
+            size="sm"
             onClick={() => {
               updateTextElement(selectedElement?.uuid!, {
                 horizonAlign: "right"
@@ -172,6 +179,53 @@ export const TextElementInfo = () => {
           </Button>
         </ButtonGroup>
         <span className="border w-px h-6" />
+        <ButtonGroup>
+          <Button
+            variant={
+              textInfo.verticalAlign === "top"
+                ? "secondary"
+                : "outline-secondary"
+            }
+            size="sm"
+            onClick={() => {
+              updateTextElement(selectedElement?.uuid!, {
+                verticalAlign: "top"
+              });
+            }}
+          >
+            <VerticalAlignTopIcon fontSize="small" />
+          </Button>
+          <Button
+            variant={
+              textInfo.verticalAlign === "center"
+                ? "secondary"
+                : "outline-secondary"
+            }
+            size="sm"
+            onClick={() => {
+              updateTextElement(selectedElement?.uuid!, {
+                verticalAlign: "center"
+              });
+            }}
+          >
+            <VerticalAlignCenterIcon fontSize="small" />
+          </Button>
+          <Button
+            variant={
+              textInfo.verticalAlign === "bottom"
+                ? "secondary"
+                : "outline-secondary"
+            }
+            size="sm"
+            onClick={() => {
+              updateTextElement(selectedElement?.uuid!, {
+                verticalAlign: "bottom"
+              });
+            }}
+          >
+            <VerticalAlignBottomIcon fontSize="small" />
+          </Button>
+        </ButtonGroup>
       </div>
     </div>
   );

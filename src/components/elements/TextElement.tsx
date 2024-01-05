@@ -48,7 +48,6 @@ export const TextElement = (props: Props) => {
             style={{
               width: props.element.width,
               minHeight: "50px",
-              textAlign: props.element.textInfo?.horizonAlign,
               padding: props.element.textInfo?.padding
             }}
             onClick={e => {
@@ -56,14 +55,31 @@ export const TextElement = (props: Props) => {
               onClickElement(props.element.uuid);
             }}
           >
-            <span
-              style={{
-                fontSize: props.element.textInfo?.fontSize,
-                fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
-              }}
+            <div
+              className={classNames("h-100 d-flex", {
+                "justify-content-start":
+                  props.element.textInfo?.horizonAlign === "left",
+                "justify-content-center":
+                  props.element.textInfo?.horizonAlign === "center",
+                "justify-content-end":
+                  props.element.textInfo?.horizonAlign === "right",
+                "align-items-start":
+                  props.element.textInfo?.verticalAlign === "top",
+                "align-items-center":
+                  props.element.textInfo?.verticalAlign === "center",
+                "align-items-end":
+                  props.element.textInfo?.verticalAlign === "bottom"
+              })}
             >
-              {props.element.textInfo?.text}
-            </span>
+              <span
+                style={{
+                  fontSize: props.element.textInfo?.fontSize,
+                  fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
+                }}
+              >
+                {props.element.textInfo?.text}
+              </span>
+            </div>
             {selectedElementId === props.element.uuid && (
               <ElementTools element={props.element} />
             )}
