@@ -74,6 +74,7 @@ interface GameState {
   updateElementPosition: (uuid: string, x: number, y: number) => void;
   updateElementSize: (uuid: string, width: number) => void;
   updateElementLink: (uuid: string, link: string) => void;
+  updateElementOrder: (uuid: string, offset: number) => void;
   onClickElement: (uuid: string) => void;
   deleteElement: (uuid: string) => void;
   addNewText: () => void;
@@ -322,6 +323,29 @@ export const useGame = create<GameState>((set, get) => ({
         pageList
       }
     }));
+  },
+  updateElementOrder(uuid: string, offset: number) {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    const index = selectedPageInfo.elements?.findIndex(e => e.uuid === uuid);
+    if (!_.isNil(index)) {
+      const element = selectedPageInfo.elements?.splice(index, 1)[0];
+      selectedPageInfo.elements?.splice(
+        Math.max(0, index + offset),
+        0,
+        element as PageElement
+      );
+
+      pageList.splice(selectedPage, 1, selectedPageInfo);
+
+      set(() => ({
+        gameInfo: {
+          ...gameInfo,
+          pageList
+        }
+      }));
+    }
   },
   onClickElement(selectedElementId: string) {
     const { selectedPage, gameInfo } = get();

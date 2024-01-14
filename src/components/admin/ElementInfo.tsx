@@ -1,11 +1,20 @@
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import LastPageIcon from "@mui/icons-material/LastPage";
 import { useMemo } from "react";
-import { Form } from "react-bootstrap";
+import { Button, ButtonGroup, Form } from "react-bootstrap";
 import { PageElement, useGame } from "store/useGame";
 import { TextElementInfo } from "./TextElementInfo";
 
 export const ElementInfo = () => {
-  const { selectedElementId, selectedPage, gameInfo, updateElementLink } =
-    useGame();
+  const {
+    selectedElementId,
+    selectedPage,
+    gameInfo,
+    updateElementLink,
+    updateElementOrder
+  } = useGame();
 
   const selectedElement = useMemo(() => {
     let element: PageElement | undefined;
@@ -24,15 +33,24 @@ export const ElementInfo = () => {
     updateElementLink(selectedElementId, v);
   };
 
+  const onChangeOrder = (offset: number) => {
+    updateElementOrder(selectedElementId, offset);
+  };
+
   return (
     <div className="element-info p-4 text-left">
-      <div className="mb-3">
-        <b>타입</b> : {selectedElement?.type}
-      </div>
-      <div className="flex items-center mb-3">
-        <div className="w-14">
-          <b>링크</b> :
-        </div>
+      <Form.Group className="mb-3">
+        <Form.Label>ID</Form.Label>
+        <Form.Text>{selectedElement?.uuid}</Form.Text>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>타입</Form.Label>
+        <Form.Text>{selectedElement?.type}</Form.Text>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>링크</Form.Label>
         <Form.Select
           aria-label="Default select example"
           value={selectedElement?.link}
@@ -51,7 +69,53 @@ export const ElementInfo = () => {
             );
           })}
         </Form.Select>
-      </div>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>순서</Form.Label>
+        <ButtonGroup>
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            onClick={() => onChangeOrder(-Number.MAX_SAFE_INTEGER)}
+          >
+            <FirstPageIcon />
+            <div>
+              <small>맨 뒤로</small>
+            </div>
+          </Button>
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            onClick={() => onChangeOrder(-1)}
+          >
+            <ChevronLeftIcon />
+            <div>
+              <small>뒤로</small>
+            </div>
+          </Button>
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            onClick={() => onChangeOrder(1)}
+          >
+            <ChevronRightIcon />
+            <div>
+              <small>앞으로</small>
+            </div>
+          </Button>
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            onClick={() => onChangeOrder(Number.MAX_SAFE_INTEGER)}
+          >
+            <LastPageIcon />
+            <div>
+              <small>맨 앞으로</small>
+            </div>
+          </Button>
+        </ButtonGroup>
+      </Form.Group>
 
       <TextElementInfo />
     </div>

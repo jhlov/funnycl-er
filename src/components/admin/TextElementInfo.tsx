@@ -35,16 +35,19 @@ export const TextElementInfo = () => {
 
   return (
     <div>
-      <Form.Control
-        className="mb-3"
-        as="textarea"
-        value={textInfo.text}
-        onChange={e =>
-          updateTextElement(selectedElement?.uuid!, { text: e.target.value })
-        }
-        rows={5}
-      />
-      <div className="d-flex mb-3">
+      <Form.Group className="mb-3">
+        <Form.Label>텍스트</Form.Label>
+        <Form.Control
+          as="textarea"
+          value={textInfo.text}
+          onChange={e =>
+            updateTextElement(selectedElement?.uuid!, { text: e.target.value })
+          }
+          rows={5}
+        />
+      </Form.Group>
+
+      <Form.Group className="d-flex mb-3">
         <div className="flex-fill">
           <Form.Label>
             폰트 사이즈<sub>(px)</sub>
@@ -117,116 +120,119 @@ export const TextElementInfo = () => {
             </button>
           </div>
         </div>
-      </div>
+      </Form.Group>
 
-      <div className="d-flex justify-between align-items-center">
-        <ButtonGroup>
-          <Button
-            variant={textInfo.isBold ? "secondary" : "outline-secondary"}
-            size="sm"
-            onClick={() => {
-              updateTextElement(selectedElement?.uuid!, {
-                isBold: textInfo.isBold ? false : true
-              });
-            }}
-          >
-            <FormatBoldIcon fontSize="small" />
-          </Button>
-          <Button
-            variant={
-              textInfo.horizonAlign === "left"
-                ? "secondary"
-                : "outline-secondary"
-            }
-            size="sm"
-            onClick={() => {
-              updateTextElement(selectedElement?.uuid!, {
-                horizonAlign: "left"
-              });
-            }}
-          >
-            <FormatAlignLeftIcon fontSize="small" />
-          </Button>
-          <Button
-            variant={
-              textInfo.horizonAlign === "center"
-                ? "secondary"
-                : "outline-secondary"
-            }
-            size="sm"
-            onClick={() => {
-              updateTextElement(selectedElement?.uuid!, {
-                horizonAlign: "center"
-              });
-            }}
-          >
-            <FormatAlignCenterIcon fontSize="small" />
-          </Button>
-          <Button
-            variant={
-              textInfo.horizonAlign === "right"
-                ? "secondary"
-                : "outline-secondary"
-            }
-            size="sm"
-            onClick={() => {
-              updateTextElement(selectedElement?.uuid!, {
-                horizonAlign: "right"
-              });
-            }}
-          >
-            <FormatAlignRightIcon fontSize="small" />
-          </Button>
-        </ButtonGroup>
-        <span className="border w-px h-6" />
-        <ButtonGroup>
-          <Button
-            variant={
-              textInfo.verticalAlign === "top"
-                ? "secondary"
-                : "outline-secondary"
-            }
-            size="sm"
-            onClick={() => {
-              updateTextElement(selectedElement?.uuid!, {
-                verticalAlign: "top"
-              });
-            }}
-          >
-            <VerticalAlignTopIcon fontSize="small" />
-          </Button>
-          <Button
-            variant={
-              textInfo.verticalAlign === "center"
-                ? "secondary"
-                : "outline-secondary"
-            }
-            size="sm"
-            onClick={() => {
-              updateTextElement(selectedElement?.uuid!, {
-                verticalAlign: "center"
-              });
-            }}
-          >
-            <VerticalAlignCenterIcon fontSize="small" />
-          </Button>
-          <Button
-            variant={
-              textInfo.verticalAlign === "bottom"
-                ? "secondary"
-                : "outline-secondary"
-            }
-            size="sm"
-            onClick={() => {
-              updateTextElement(selectedElement?.uuid!, {
-                verticalAlign: "bottom"
-              });
-            }}
-          >
-            <VerticalAlignBottomIcon fontSize="small" />
-          </Button>
-        </ButtonGroup>
-      </div>
+      <Form.Group className="mb-3">
+        <Form.Label>정렬</Form.Label>
+        <div className="d-flex justify-between align-items-center">
+          <ButtonGroup>
+            <Button
+              variant={textInfo.isBold ? "secondary" : "outline-secondary"}
+              size="sm"
+              onClick={() => {
+                updateTextElement(selectedElement?.uuid!, {
+                  isBold: textInfo.isBold ? false : true
+                });
+              }}
+            >
+              <FormatBoldIcon fontSize="small" />
+            </Button>
+            <Button
+              variant={
+                textInfo.horizonAlign === "left"
+                  ? "secondary"
+                  : "outline-secondary"
+              }
+              size="sm"
+              onClick={() => {
+                updateTextElement(selectedElement?.uuid!, {
+                  horizonAlign: "left"
+                });
+              }}
+            >
+              <FormatAlignLeftIcon fontSize="small" />
+            </Button>
+            <Button
+              variant={
+                textInfo.horizonAlign === "center"
+                  ? "secondary"
+                  : "outline-secondary"
+              }
+              size="sm"
+              onClick={() => {
+                updateTextElement(selectedElement?.uuid!, {
+                  horizonAlign: "center"
+                });
+              }}
+            >
+              <FormatAlignCenterIcon fontSize="small" />
+            </Button>
+            <Button
+              variant={
+                textInfo.horizonAlign === "right"
+                  ? "secondary"
+                  : "outline-secondary"
+              }
+              size="sm"
+              onClick={() => {
+                updateTextElement(selectedElement?.uuid!, {
+                  horizonAlign: "right"
+                });
+              }}
+            >
+              <FormatAlignRightIcon fontSize="small" />
+            </Button>
+          </ButtonGroup>
+          <span className="border w-px h-6" />
+          <ButtonGroup>
+            <Button
+              variant={
+                textInfo.verticalAlign === "top"
+                  ? "secondary"
+                  : "outline-secondary"
+              }
+              size="sm"
+              onClick={() => {
+                updateTextElement(selectedElement?.uuid!, {
+                  verticalAlign: "top"
+                });
+              }}
+            >
+              <VerticalAlignTopIcon fontSize="small" />
+            </Button>
+            <Button
+              variant={
+                textInfo.verticalAlign === "center"
+                  ? "secondary"
+                  : "outline-secondary"
+              }
+              size="sm"
+              onClick={() => {
+                updateTextElement(selectedElement?.uuid!, {
+                  verticalAlign: "center"
+                });
+              }}
+            >
+              <VerticalAlignCenterIcon fontSize="small" />
+            </Button>
+            <Button
+              variant={
+                textInfo.verticalAlign === "bottom"
+                  ? "secondary"
+                  : "outline-secondary"
+              }
+              size="sm"
+              onClick={() => {
+                updateTextElement(selectedElement?.uuid!, {
+                  verticalAlign: "bottom"
+                });
+              }}
+            >
+              <VerticalAlignBottomIcon fontSize="small" />
+            </Button>
+          </ButtonGroup>
+        </div>
+      </Form.Group>
     </div>
   );
 };
