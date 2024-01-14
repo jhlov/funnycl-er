@@ -1,3 +1,4 @@
+import LinkIcon from "@mui/icons-material/Link";
 import classNames from "classnames";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { Resizable, ResizeCallbackData } from "react-resizable";
@@ -85,6 +86,10 @@ export const SampleImageElement = (props: Props) => {
 
             {selectedElementId === props.element.uuid && (
               <ElementTools element={props.element} />
+            )}
+
+            {props.element.link && (
+              <LinkIcon className="link-icon" fontSize="small" />
             )}
           </div>
         </Resizable>

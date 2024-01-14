@@ -53,7 +53,7 @@ export const ElementInfo = () => {
         <Form.Label>링크</Form.Label>
         <Form.Select
           aria-label="Default select example"
-          value={selectedElement?.link}
+          value={selectedElement?.link ?? ""}
           onChange={e => onChangeLink(e.target.value)}
         >
           <option value="">-</option>
