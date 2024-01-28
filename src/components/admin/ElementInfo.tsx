@@ -41,7 +41,7 @@ export const ElementInfo = () => {
     <div className="element-info p-4 text-left">
       <Form.Group className="mb-3">
         <Form.Label>ID</Form.Label>
-        <Form.Text>{selectedElement?.uuid}</Form.Text>
+        <Form.Text>{selectedElementId}</Form.Text>
       </Form.Group>
 
       <Form.Group className="mb-3">

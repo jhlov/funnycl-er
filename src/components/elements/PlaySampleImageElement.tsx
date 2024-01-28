@@ -57,7 +57,10 @@ export const PlaySampleImageElement = (props: Props) => {
             style={{
               fontSize: props.element.textInfo?.fontSize,
               fontWeight: props.element.textInfo?.isBold ? "bold" : "normal",
-              color: props.element.textInfo?.color ?? DEFAULT_FONT_COLOR
+              color: props.element.textInfo?.color ?? DEFAULT_FONT_COLOR,
+              textShadow: props.element.textInfo?.isShadow
+                ? `-1px 0px ${props.element.textInfo.shadowColor}, 0px 1px ${props.element.textInfo.shadowColor}, 1px 0px ${props.element.textInfo.shadowColor}, 0px -1px ${props.element.textInfo.shadowColor}`
+                : ""
             }}
           >
             {props.element.textInfo.text}

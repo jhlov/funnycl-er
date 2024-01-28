@@ -7,7 +7,11 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
 import VerticalAlignCenterIcon from "@mui/icons-material/VerticalAlignCenter";
 import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
-import { DEFAULT_FONT_COLOR, initImageTextInfo } from "interfaces/TextInfo";
+import {
+  DEFAULT_FONT_COLOR,
+  colors,
+  initImageTextInfo
+} from "interfaces/TextInfo";
 import { useMemo } from "react";
 import { Button, ButtonGroup, Form } from "react-bootstrap";
 import { CompactPicker } from "react-color";
@@ -41,7 +45,7 @@ export const TextElementInfo = () => {
           as="textarea"
           value={textInfo.text}
           onChange={e =>
-            updateTextElement(selectedElement?.uuid!, { text: e.target.value })
+            updateTextElement(selectedElementId, { text: e.target.value })
           }
           rows={5}
         />
@@ -55,7 +59,7 @@ export const TextElementInfo = () => {
           <div className="d-flex align-items-center">
             <button
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   fontSize: Math.max(1, textInfo.fontSize - 1)
                 });
               }}
@@ -68,14 +72,14 @@ export const TextElementInfo = () => {
               value={textInfo.fontSize}
               min={1}
               onChange={e =>
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   fontSize: Number(e.target.value)
                 })
               }
             />
             <button
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   fontSize: textInfo.fontSize + 1
                 });
               }}
@@ -91,7 +95,7 @@ export const TextElementInfo = () => {
           <div className="d-flex align-items-center">
             <button
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   padding: Math.max(0, (textInfo.padding ?? 0) - 1)
                 });
               }}
@@ -104,14 +108,14 @@ export const TextElementInfo = () => {
               value={textInfo.padding ?? 0}
               min={0}
               onChange={e =>
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   padding: Number(e.target.value)
                 })
               }
             />
             <button
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   padding: (textInfo.padding ?? 0) + 1
                 });
               }}
@@ -130,7 +134,7 @@ export const TextElementInfo = () => {
               variant={textInfo.isBold ? "secondary" : "outline-secondary"}
               size="sm"
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   isBold: textInfo.isBold ? false : true
                 });
               }}
@@ -145,7 +149,7 @@ export const TextElementInfo = () => {
               }
               size="sm"
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   horizonAlign: "left"
                 });
               }}
@@ -160,7 +164,7 @@ export const TextElementInfo = () => {
               }
               size="sm"
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   horizonAlign: "center"
                 });
               }}
@@ -175,7 +179,7 @@ export const TextElementInfo = () => {
               }
               size="sm"
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   horizonAlign: "right"
                 });
               }}
@@ -193,7 +197,7 @@ export const TextElementInfo = () => {
               }
               size="sm"
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   verticalAlign: "top"
                 });
               }}
@@ -208,7 +212,7 @@ export const TextElementInfo = () => {
               }
               size="sm"
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   verticalAlign: "center"
                 });
               }}
@@ -223,7 +227,7 @@ export const TextElementInfo = () => {
               }
               size="sm"
               onClick={() => {
-                updateTextElement(selectedElement?.uuid!, {
+                updateTextElement(selectedElementId, {
                   verticalAlign: "bottom"
                 });
               }}
@@ -235,51 +239,42 @@ export const TextElementInfo = () => {
       </Form.Group>
 
       <Form.Group className="mb-3">
+        <Form.Label>글자 색</Form.Label>
         <CompactPicker
           color={selectedElement?.textInfo?.color ?? DEFAULT_FONT_COLOR}
-          colors={[
-            "#4D4D4D",
-            "#999999",
-            "#FFFFFF",
-            "#F44E3B",
-            "#FE9200",
-            "#FCDC00",
-            "#DBDF00",
-            "#A4DD00",
-            "#68CCCA",
-            "#73D8FF",
-            "#AEA1FF",
-            "#FDA1FF",
-            "#333333",
-            "#808080",
-            "#cccccc",
-            "#D33115",
-            "#E27300",
-            "#FCC400",
-            "#B0BC00",
-            "#68BC00",
-            "#16A5A5",
-            "#009CE0",
-            "#7B64FF",
-            "#FA28FF",
-            // "#000000",
-            DEFAULT_FONT_COLOR,
-            "#666666",
-            "#B3B3B3",
-            "#9F0500",
-            "#C45100",
-            "#FB9E00",
-            "#808900",
-            "#194D33",
-            "#0C797D",
-            "#0062B1",
-            "#653294",
-            "#AB149E"
-          ]}
+          colors={colors}
           onChangeComplete={color =>
-            updateTextElement(selectedElement?.uuid!, { color: color.hex })
+            updateTextElement(selectedElementId, { color: color.hex })
           }
         />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <div className="d-flex">
+          <Form.Label>글자 테두리</Form.Label>
+          <Form.Check
+            className="ms-2"
+            type="switch"
+            id="font-shadow"
+            checked={selectedElement?.textInfo?.isShadow ?? false}
+            onChange={e =>
+              updateTextElement(selectedElementId, {
+                isShadow: e.target.checked
+              })
+            }
+          />
+        </div>
+        {selectedElement?.textInfo?.isShadow && (
+          <CompactPicker
+            color={selectedElement?.textInfo?.shadowColor ?? DEFAULT_FONT_COLOR}
+            colors={colors}
+            onChangeComplete={color =>
+              updateTextElement(selectedElementId, {
+                shadowColor: color.hex
+              })
+            }
+          />
+        )}
       </Form.Group>
     </div>
   );
