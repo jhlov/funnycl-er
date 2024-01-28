@@ -12,6 +12,7 @@ export interface GameInfo {
   userId?: string;
   created?: string;
   modified?: string;
+  deleted?: string;
   /////////////////
   title: string;
   pageList: PageInfo[];

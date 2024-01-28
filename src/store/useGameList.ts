@@ -33,7 +33,9 @@ export const useGameList = create<GameListState>((set, get) => ({
       snapshot => {
         const data = snapshot.val();
         set(() => ({
-          gameList: Object.values(data)
+          gameList: (Object.values(data) as GameInfo[]).filter(
+            (game: GameInfo) => !game.deleted
+          )
         }));
       },
       {

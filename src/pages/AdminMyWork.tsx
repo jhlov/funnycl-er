@@ -26,11 +26,7 @@ export const AdminMyWork = () => {
       const db = getDatabase();
 
       const updates: any = {};
-      updates[`game/all/${id}/deleted`] = moment()
-        .utc(false)
-        .add(9, "h")
-        .format("YYYY-MM-DD HH:mm:ss");
-      updates[`game/${auth.currentUser?.uid}/${id}/deleted`] = moment()
+      updates[`er/game/${id}/deleted`] = moment()
         .utc(false)
         .add(9, "h")
         .format("YYYY-MM-DD HH:mm:ss");
@@ -77,7 +73,7 @@ export const AdminMyWork = () => {
                 <td>
                   <button
                     className="btn"
-                    // onClick={() => onClickRemoveGame(item.id!)}
+                    onClick={() => onClickRemoveGame(item.id!)}
                   >
                     <DeleteIcon />
                   </button>
