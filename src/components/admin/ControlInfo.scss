@@ -1,4 +1,12 @@
 .control-info {
-  width: 360px;
+  width: 580px;
   border-right: 1px solid rgba(#5a6577, 0.15);
+
+  @media (max-width: 1120px) {
+    width: 480px;
+  }
+
+  @media (max-width: 980px) {
+    width: 360px;
+  }
 }
