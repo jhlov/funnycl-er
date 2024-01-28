@@ -7,9 +7,12 @@ export const initTextInfo: TextInfo = {
   verticalAlign: "top"
 };
 
+export const DEFAULT_FONT_COLOR = "#212529";
+
 export const initImageTextInfo: TextInfo = {
   text: "",
   fontSize: 16,
+  color: DEFAULT_FONT_COLOR,
   padding: 0,
   isBold: false,
   horizonAlign: "center",
@@ -22,6 +25,7 @@ export type VerticalAlign = "top" | "center" | "bottom";
 export interface TextInfo {
   text: string;
   fontSize: number;
+  color?: string;
   padding: number;
   isBold: boolean;
   horizonAlign: HorizonAlign;

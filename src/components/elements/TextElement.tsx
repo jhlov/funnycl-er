@@ -1,5 +1,6 @@
 import LinkIcon from "@mui/icons-material/Link";
 import classNames from "classnames";
+import { DEFAULT_FONT_COLOR } from "interfaces/TextInfo";
 import React from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { Resizable, ResizeCallbackData } from "react-resizable";
@@ -76,7 +77,10 @@ export const TextElement = (props: Props) => {
                 className="whitespace-pre-wrap"
                 style={{
                   fontSize: props.element.textInfo?.fontSize,
-                  fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
+                  fontWeight: props.element.textInfo?.isBold
+                    ? "bold"
+                    : "normal",
+                  color: props.element.textInfo?.color ?? DEFAULT_FONT_COLOR
                 }}
               >
                 {props.element.textInfo?.text}

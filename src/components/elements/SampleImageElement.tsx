@@ -1,5 +1,6 @@
 import LinkIcon from "@mui/icons-material/Link";
 import classNames from "classnames";
+import { DEFAULT_FONT_COLOR } from "interfaces/TextInfo";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { Resizable, ResizeCallbackData } from "react-resizable";
 import { PageElement, useGame } from "store/useGame";
@@ -77,7 +78,8 @@ export const SampleImageElement = (props: Props) => {
                     fontSize: props.element.textInfo?.fontSize,
                     fontWeight: props.element.textInfo?.isBold
                       ? "bold"
-                      : "normal"
+                      : "normal",
+                    color: props.element.textInfo?.color ?? DEFAULT_FONT_COLOR
                   }}
                 >
                   {props.element.textInfo.text}

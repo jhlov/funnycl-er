@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { DEFAULT_FONT_COLOR } from "interfaces/TextInfo";
 import { PageElement, useGame } from "store/useGame";
 
 interface Props {
@@ -52,7 +53,8 @@ export const PlayTextElement = (props: Props) => {
           className="whitespace-pre-wrap"
           style={{
             fontSize: props.element.textInfo?.fontSize! * props.scale,
-            fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
+            fontWeight: props.element.textInfo?.isBold ? "bold" : "normal",
+            color: props.element.textInfo?.color ?? DEFAULT_FONT_COLOR
           }}
         >
           {props.element.textInfo?.text}
