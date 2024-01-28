@@ -73,6 +73,7 @@ export const TextElement = (props: Props) => {
               })}
             >
               <span
+                className="whitespace-pre-wrap"
                 style={{
                   fontSize: props.element.textInfo?.fontSize,
                   fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"

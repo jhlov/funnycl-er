@@ -49,6 +49,7 @@ export const PlayTextElement = (props: Props) => {
         })}
       >
         <span
+          className="whitespace-pre-wrap"
           style={{
             fontSize: props.element.textInfo?.fontSize! * props.scale,
             fontWeight: props.element.textInfo?.isBold ? "bold" : "normal"
