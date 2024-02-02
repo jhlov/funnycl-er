@@ -3,7 +3,12 @@ import { Form } from "react-bootstrap";
 import { PageElement, useGame } from "store/useGame";
 
 export const ShortAnswerElementInfo = () => {
-  const { selectedElementId, gameInfo, updateShortAnswerElement } = useGame();
+  const {
+    selectedElementId,
+    selectedPage,
+    gameInfo,
+    updateShortAnswerElement
+  } = useGame();
 
   const selectedElement = useMemo(() => {
     let element: PageElement | undefined;
@@ -34,6 +39,58 @@ export const ShortAnswerElementInfo = () => {
             })
           }
         />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>링크 (정답)</Form.Label>
+        <Form.Select
+          aria-label="Default select example"
+          value={selectedElement?.shortAnswerInfo?.correctLink ?? ""}
+          onChange={e => {
+            updateShortAnswerElement(selectedElementId, {
+              correctLink: e.target.value
+            });
+          }}
+        >
+          <option value="">-</option>
+          {gameInfo.pageList.map((page, i) => {
+            if (i === selectedPage) {
+              return "";
+            }
+
+            return (
+              <option value={page.uuid}>{`${i + 1} 페이지 - ${
+                page.title || "(제목 없음)"
+              }`}</option>
+            );
+          })}
+        </Form.Select>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>링크 (오답)</Form.Label>
+        <Form.Select
+          aria-label="Default select example"
+          value={selectedElement?.shortAnswerInfo?.incorrectLink ?? ""}
+          onChange={e => {
+            updateShortAnswerElement(selectedElementId, {
+              incorrectLink: e.target.value
+            });
+          }}
+        >
+          <option value="">-</option>
+          {gameInfo.pageList.map((page, i) => {
+            if (i === selectedPage) {
+              return "";
+            }
+
+            return (
+              <option value={page.uuid}>{`${i + 1} 페이지 - ${
+                page.title || "(제목 없음)"
+              }`}</option>
+            );
+          })}
+        </Form.Select>
       </Form.Group>
     </div>
   );
