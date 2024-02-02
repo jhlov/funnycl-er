@@ -59,11 +59,13 @@ export const ShortAnswerElement = (props: Props) => {
           >
             <Form.Control
               className="short-answer-element__input mr-1"
+              style={{ fontSize: 20 }}
               value={props.element.shortAnswerInfo?.answer}
               disabled
             />
             <Button
               className="short-answer-element__button"
+              style={{ fontSize: 16 }}
               variant="outline-secondary"
               size="sm"
             >

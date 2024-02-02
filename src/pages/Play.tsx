@@ -1,4 +1,5 @@
 import { PlaySampleImageElement } from "components/elements/PlaySampleImageElement";
+import { PlayShortAnswerElement } from "components/elements/PlayShortAnswerElement";
 import { PlayTextElement } from "components/elements/PlayTextElement";
 import { useEffect, useMemo, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
@@ -67,6 +68,14 @@ export const Play = () => {
           } else if (element.type === "TEXT") {
             return (
               <PlayTextElement
+                key={element.uuid}
+                scale={(canvasWidth as number) / 400}
+                element={element!}
+              />
+            );
+          } else if (element.type === "SHORT_ANSWER") {
+            return (
+              <PlayShortAnswerElement
                 key={element.uuid}
                 scale={(canvasWidth as number) / 400}
                 element={element!}

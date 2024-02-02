@@ -2,13 +2,13 @@
   display: flex;
 
   &__input {
-    font-size: 20px !important;
     font-weight: bold !important;
+    background-color: white !important;
+    text-align: center;
   }
 
   &__button {
     width: 100px;
-    font-size: 16px !important;
     font-weight: bold !important;
     background: white !important;
 
