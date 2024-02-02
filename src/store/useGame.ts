@@ -1,11 +1,12 @@
 import { child, get as getData, getDatabase, ref } from "firebase/database";
 import { SampleImage } from "interfaces/SampleImage";
+import { ShortAnswerInfo } from "interfaces/ShortAnswerInfo";
 import { TextInfo, initImageTextInfo, initTextInfo } from "interfaces/TextInfo";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import create from "zustand";
 
-type ControlType = "GAME_INFO" | "IMAGE" | "TEXT";
+type ControlType = "GAME_INFO" | "IMAGE" | "TEXT" | "SHORT_ANSWER";
 
 export interface GameInfo {
   id?: string;
@@ -40,7 +41,7 @@ export interface PageInfo {
   elements?: PageElement[];
 }
 
-type ElementType = "SAMPLE_IMAGE" | "TEXT";
+type ElementType = "SAMPLE_IMAGE" | "TEXT" | "SHORT_ANSWER";
 
 export interface PageElement {
   uuid: string;
@@ -52,6 +53,7 @@ export interface PageElement {
   sampleImage?: SampleImage;
   textInfo?: TextInfo;
   link?: string;
+  shortAnswerInfo?: ShortAnswerInfo;
 }
 
 interface GameState {
@@ -80,6 +82,11 @@ interface GameState {
   deleteElement: (uuid: string) => void;
   addNewText: () => void;
   updateTextElement: (uuid: string, changed: Partial<TextInfo>) => void;
+  addNewShortAnswer: () => void;
+  updateShortAnswerElement: (
+    uuid: string,
+    changed: Partial<ShortAnswerInfo>
+  ) => void;
 }
 
 export const useGame = create<GameState>((set, get) => ({
@@ -419,6 +426,65 @@ export const useGame = create<GameState>((set, get) => ({
             textInfo: {
               ...initImageTextInfo,
               ...element.textInfo!,
+              ...changed!
+            }
+          };
+        }
+
+        return element;
+      }
+    );
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      }
+    }));
+  },
+  addNewShortAnswer() {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = selectedPageInfo.elements ?? [];
+    const uuid = uuidv4();
+    selectedPageInfo.elements.push({
+      uuid,
+      type: "SHORT_ANSWER",
+      x: 100,
+      y: 300,
+      width: 200,
+      shortAnswerInfo: {
+        answer: "",
+        correctLink: "",
+        incorrectLink: ""
+      }
+    });
+    pageList.splice(selectedPage, 1, selectedPageInfo);
+
+    set(() => ({
+      gameInfo: {
+        ...gameInfo,
+        pageList
+      },
+      selectedElementId: uuid
+    }));
+  },
+  updateShortAnswerElement: (
+    uuid: string,
+    changed: Partial<ShortAnswerInfo>
+  ) => {
+    const { selectedPage, gameInfo } = get();
+    const pageList = [...gameInfo.pageList];
+    const selectedPageInfo = _.cloneDeep(pageList[selectedPage]);
+    selectedPageInfo.elements = (selectedPageInfo.elements ?? []).map(
+      element => {
+        if (element.uuid === uuid) {
+          return {
+            ...element,
+            shortAnswerInfo: {
+              ...element.shortAnswerInfo!,
               ...changed!
             }
           };

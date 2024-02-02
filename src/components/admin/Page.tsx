@@ -5,6 +5,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import classNames from "classnames";
 import { SampleImageElement } from "components/elements/SampleImageElement";
+import { ShortAnswerElement } from "components/elements/ShortAnswerElement";
 import { TextElement } from "components/elements/TextElement";
 import { Form } from "react-bootstrap";
 import { PageInfo, useGame } from "store/useGame";
@@ -75,6 +76,8 @@ export const Page = (props: Props) => {
             return <SampleImageElement key={element.uuid} element={element!} />;
           } else if (element.type === "TEXT") {
             return <TextElement key={element.uuid} element={element!} />;
+          } else if (element.type === "SHORT_ANSWER") {
+            return <ShortAnswerElement key={element.uuid} element={element!} />;
           }
         })}
       </div>

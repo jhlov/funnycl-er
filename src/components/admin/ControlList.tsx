@@ -1,3 +1,4 @@
+import Crop169Icon from "@mui/icons-material/Crop169";
 import ImageIcon from "@mui/icons-material/Image";
 import InfoIcon from "@mui/icons-material/Info";
 import TextFieldsIcon from "@mui/icons-material/TextFields";
@@ -5,11 +6,16 @@ import classNames from "classnames";
 import { useGame } from "store/useGame";
 
 export const ControlList = () => {
-  const { control, setControl, addNewText } = useGame();
+  const { control, setControl, addNewText, addNewShortAnswer } = useGame();
 
   const onClickText = () => {
     setControl("TEXT");
     addNewText();
+  };
+
+  const onClickShortAnswer = () => {
+    setControl("SHORT_ANSWER");
+    addNewShortAnswer();
   };
 
   return (
@@ -40,6 +46,15 @@ export const ControlList = () => {
       >
         <TextFieldsIcon />
         <div>텍스트</div>
+      </button>
+      <button
+        className={classNames("side-bar__button", {
+          active: control === "SHORT_ANSWER"
+        })}
+        onClick={onClickShortAnswer}
+      >
+        <Crop169Icon />
+        <div>단답형</div>
       </button>
     </div>
   );

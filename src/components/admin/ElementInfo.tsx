@@ -2,6 +2,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import LastPageIcon from "@mui/icons-material/LastPage";
+import { ShortAnswerElementInfo } from "components/ShortAnswerElementInfo";
 import { useMemo } from "react";
 import { Button, ButtonGroup, Form } from "react-bootstrap";
 import { PageElement, useGame } from "store/useGame";
@@ -117,7 +118,9 @@ export const ElementInfo = () => {
         </ButtonGroup>
       </Form.Group>
 
-      <TextElementInfo />
+      {selectedElement?.type !== "SHORT_ANSWER" && <TextElementInfo />}
+
+      {selectedElement?.type === "SHORT_ANSWER" && <ShortAnswerElementInfo />}
     </div>
   );
 };
