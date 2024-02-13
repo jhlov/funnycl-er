@@ -422,5 +422,24 @@ export const sampleImageList: Record<string, SampleImage> = {
     key: "button_17",
     url: "/funnycl-er/assets/image-button/BtnC04.png",
     name: "버튼 17"
+  },
+  // TODO
+  emotion_1: {
+    type: "emotion",
+    key: "emotion_1",
+    url: "/funnycl-er/assets/image-button/BtnC04.png",
+    name: "버튼 17"
+  },
+  tool_1: {
+    type: "tool",
+    key: "tool_1",
+    url: "/funnycl-er/assets/image-button/BtnC04.png",
+    name: "버튼 17"
+  },
+  etc_1: {
+    type: "etc",
+    key: "etc_1",
+    url: "/funnycl-er/assets/image-button/BtnC04.png",
+    name: "버튼 17"
   }
 };

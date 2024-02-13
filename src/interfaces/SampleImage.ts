@@ -1,4 +1,11 @@
-type SampleImageType = "character" | "background" | "bubble" | "button";
+export type SampleImageType =
+  | "character"
+  | "background"
+  | "bubble"
+  | "button"
+  | "emotion"
+  | "tool"
+  | "etc";
 
 export interface SampleImage {
   type: SampleImageType;
