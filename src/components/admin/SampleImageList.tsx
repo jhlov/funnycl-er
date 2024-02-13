@@ -1,5 +1,6 @@
 import { SampleImage, SampleImageType } from "interfaces/SampleImage";
 import { useEffect } from "react";
+import Accordion from "react-bootstrap/Accordion";
 import { useGame } from "store/useGame";
 import "./SampleImageList.scss";
 import { sampleImageList } from "./SampleImageListData";
@@ -40,24 +41,30 @@ export const SampleImageList = () => {
 
   return (
     <div className="sample-image-list p-4">
-      {imageTypeList.map(([label, type]) => {
+      {imageTypeList.map(([label, type], i) => {
         return (
           <>
-            <div className="text-left fw-bold mb-3">{label}</div>
-            <div className="sample-image-list__items mb-3">
-              {Object.values(sampleImageList)
-                .filter(image => image.type === type)
-                .map(image => (
-                  <div
-                    key={image.key}
-                    className="sample-image-list__item"
-                    onClick={() => onClickImage(image)}
-                  >
-                    <img src={image.url} />
-                    <div>{image.name}</div>
+            <Accordion defaultActiveKey={[]} alwaysOpen>
+              <Accordion.Item eventKey={i.toString()}>
+                <Accordion.Header>{label}</Accordion.Header>
+                <Accordion.Body className="p-1">
+                  <div className="sample-image-list__items mb-3">
+                    {Object.values(sampleImageList)
+                      .filter(image => image.type === type)
+                      .map(image => (
+                        <div
+                          key={image.key}
+                          className="sample-image-list__item"
+                          onClick={() => onClickImage(image)}
+                        >
+                          <img src={image.url} />
+                          <div>{image.name}</div>
+                        </div>
+                      ))}
                   </div>
-                ))}
-            </div>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
           </>
         );
       })}
